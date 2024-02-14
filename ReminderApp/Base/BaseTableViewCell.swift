@@ -1,5 +1,5 @@
 //
-//  BaseView.swift
+//  BaseTableViewCell.swift
 //  ReminderApp
 //
 //  Created by 차소민 on 2/14/24.
@@ -7,10 +7,11 @@
 
 import UIKit
 
-class BaseView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .black
+class BaseTableViewCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = .clear
         configureHierarchy()
         configureLayout()
         configureView()
