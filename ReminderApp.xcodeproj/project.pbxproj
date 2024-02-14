@@ -28,6 +28,11 @@
 		7984B5902B7CC5920079AB07 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B58F2B7CC5920079AB07 /* BaseTableViewCell.swift */; };
 		7984B5922B7CC9840079AB07 /* AddDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5912B7CC9840079AB07 /* AddDetailTableViewCell.swift */; };
 		7984B5942B7CCF200079AB07 /* AddReminderCellList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5932B7CCF200079AB07 /* AddReminderCellList.swift */; };
+		7984B5972B7CD2540079AB07 /* PriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5962B7CD2540079AB07 /* PriorityViewController.swift */; };
+		7984B5992B7CD26D0079AB07 /* DeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5982B7CD26D0079AB07 /* DeadlineViewController.swift */; };
+		7984B59B2B7CD27B0079AB07 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B59A2B7CD27B0079AB07 /* TagViewController.swift */; };
+		7984B59D2B7CD2860079AB07 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B59C2B7CD2860079AB07 /* ImageViewController.swift */; };
+		7984B59F2B7CD3FB0079AB07 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B59E2B7CD3FB0079AB07 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +58,11 @@
 		7984B58F2B7CC5920079AB07 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		7984B5912B7CC9840079AB07 /* AddDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7984B5932B7CCF200079AB07 /* AddReminderCellList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderCellList.swift; sourceTree = "<group>"; };
+		7984B5962B7CD2540079AB07 /* PriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
+		7984B5982B7CD26D0079AB07 /* DeadlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineViewController.swift; sourceTree = "<group>"; };
+		7984B59A2B7CD27B0079AB07 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
+		7984B59C2B7CD2860079AB07 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		7984B59E2B7CD3FB0079AB07 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +127,7 @@
 				7984B56D2B7C8B6F0079AB07 /* BaseView.swift */,
 				7984B57C2B7C9EEE0079AB07 /* BaseCollectionViewCell.swift */,
 				7984B58F2B7CC5920079AB07 /* BaseTableViewCell.swift */,
+				7984B59E2B7CD3FB0079AB07 /* BaseViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -138,6 +149,7 @@
 				7984B58B2B7CB0900079AB07 /* AddReminderView.swift */,
 				7984B58D2B7CC57A0079AB07 /* AddReminderTableViewCell.swift */,
 				7984B5912B7CC9840079AB07 /* AddDetailTableViewCell.swift */,
+				7984B5952B7CD22A0079AB07 /* AddDetailView */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -157,6 +169,17 @@
 				7984B5832B7CA5A00079AB07 /* CircleImageView.swift */,
 			);
 			path = custom;
+			sourceTree = "<group>";
+		};
+		7984B5952B7CD22A0079AB07 /* AddDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				7984B5982B7CD26D0079AB07 /* DeadlineViewController.swift */,
+				7984B59A2B7CD27B0079AB07 /* TagViewController.swift */,
+				7984B5962B7CD2540079AB07 /* PriorityViewController.swift */,
+				7984B59C2B7CD2860079AB07 /* ImageViewController.swift */,
+			);
+			path = AddDetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,13 +269,18 @@
 				7984B5922B7CC9840079AB07 /* AddDetailTableViewCell.swift in Sources */,
 				7984B5712B7C8C860079AB07 /* Identifier.swift in Sources */,
 				7984B5582B7C83920079AB07 /* AppDelegate.swift in Sources */,
+				7984B59D2B7CD2860079AB07 /* ImageViewController.swift in Sources */,
 				7984B55A2B7C83920079AB07 /* SceneDelegate.swift in Sources */,
 				7984B58E2B7CC57A0079AB07 /* AddReminderTableViewCell.swift in Sources */,
+				7984B59F2B7CD3FB0079AB07 /* BaseViewController.swift in Sources */,
 				7984B5742B7C8F1E0079AB07 /* ReminderListViewController.swift in Sources */,
 				7984B5802B7CA1D30079AB07 /* ReminderList.swift in Sources */,
+				7984B5972B7CD2540079AB07 /* PriorityViewController.swift in Sources */,
 				7984B5842B7CA5A00079AB07 /* CircleImageView.swift in Sources */,
 				7984B5902B7CC5920079AB07 /* BaseTableViewCell.swift in Sources */,
+				7984B59B2B7CD27B0079AB07 /* TagViewController.swift in Sources */,
 				7984B56E2B7C8B6F0079AB07 /* BaseView.swift in Sources */,
+				7984B5992B7CD26D0079AB07 /* DeadlineViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
