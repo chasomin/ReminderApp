@@ -30,9 +30,9 @@ extension UIViewController {
         tableView.register(cell, forCellReuseIdentifier: id)
     }
     
-    func setNavigationRightBarButton(title: String, action: Selector?) {
-        let barButton = UIBarButtonItem(title: title, style: .plain, target: self, action: action)
-        navigationItem.rightBarButtonItem = barButton
+    func setNavigationRightBarButton(button: inout UIBarButtonItem ,title: String, action: Selector?) {
+        button = UIBarButtonItem(title: title, style: .plain, target: self, action: action)
+        navigationItem.rightBarButtonItem = button
     }
     
     func setNavigationLeftBarButton(title: String, action: Selector?) {
