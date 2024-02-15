@@ -54,7 +54,7 @@ class DeadlineViewController: BaseViewController {
     }
     
     @objc func datePickerValueChanged() {
-        format.dateFormat = "yy년 M월 d일"
+        format.dateFormat = "yy년 MM월 dd일"
         let result = format.string(from: datePicker.date)
         textField.text = "\(result)"
         print(datePicker.date)
