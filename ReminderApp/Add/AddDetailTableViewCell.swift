@@ -39,10 +39,12 @@ class AddDetailTableViewCell: BaseTableViewCell {
         
         subTitle.font = .systemFont(ofSize: 13)
         subTitle.textColor = .lightGray
+        subTitle.textAlignment = .right
     }
     
     func configureCell(index: Int, data: [String:String]) {
         title.text = AddReminderCellList.allCases[index-1].rawValue
         subTitle.text = data[AddReminderCellList.allCases[index-1].rawValue]
     }
+    
 }
