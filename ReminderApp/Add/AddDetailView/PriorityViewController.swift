@@ -11,17 +11,19 @@ import SnapKit
 class PriorityViewController: BaseViewController {
 
     let segment = UISegmentedControl()
-    var priorityData: ((String) -> Void)?
+    var priorityData: ((Int, String) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        segment.selectedSegmentIndex = 0
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         let index = segment.selectedSegmentIndex
-        priorityData?(segment.titleForSegment(at: index) ?? "")
+        guard let text = segment.titleForSegment(at: index) else { return }
+        priorityData?(index, text)
     }
     
     override func configureHierarchy() {
