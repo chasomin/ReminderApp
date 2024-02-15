@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ReminderListView: BaseView {
+final class ReminderView: BaseView {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     let toolBar = UIToolbar()
@@ -57,7 +57,7 @@ final class ReminderListView: BaseView {
     }
 }
 
-extension ReminderListView {
+extension ReminderView {
     static func collectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         let spacing: CGFloat = 10

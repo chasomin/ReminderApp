@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ReminderListCollectionViewCell: BaseCollectionViewCell {
+final class ReminderCollectionViewCell: BaseCollectionViewCell {
     let iconImageView = CircleImageView(frame: .zero)
     let title = UILabel()
     let reminderCount = UILabel()
@@ -51,7 +51,7 @@ final class ReminderListCollectionViewCell: BaseCollectionViewCell {
     }
 }
 
-extension ReminderListCollectionViewCell {
+extension ReminderCollectionViewCell {
     func configureCell(index: Int) {
         let value = ReminderList.allCases[index]
         
@@ -59,6 +59,6 @@ extension ReminderListCollectionViewCell {
         iconImageView.backgroundColor = value.color
         title.text = value.rawValue
         
-        reminderCount.text = "0"//
+        reminderCount.text = "0"
     }
 }
