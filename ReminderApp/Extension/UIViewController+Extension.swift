@@ -16,7 +16,6 @@ extension UIViewController {
     func setToolbar(items: [UIBarButtonItem]) {
         navigationController?.isToolbarHidden = false
         toolbarItems = items
-        navigationController?.toolbar.barTintColor = .white
     }
     func setCollectionView(collectionView: UICollectionView, delegate: UICollectionViewDelegate, dataSource: UICollectionViewDataSource, cell: AnyClass, id: String) {
         collectionView.delegate = delegate
