@@ -8,10 +8,6 @@
 import UIKit
 import RealmSwift
 
-protocol ReloadDelegate {
-    func reload()
-}
-
 final class ReminderViewController: UIViewController, ReloadDelegate {
 
     let mainView = ReminderView()

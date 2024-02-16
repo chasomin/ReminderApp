@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		793843112B7F84AE000BDDF9 /* ReminderModelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843102B7F84AE000BDDF9 /* ReminderModelRepository.swift */; };
+		793843142B7F9AB5000BDDF9 /* DelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843132B7F9AB5000BDDF9 /* DelegateProtocol.swift */; };
 		7984B5582B7C83920079AB07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5572B7C83920079AB07 /* AppDelegate.swift */; };
 		7984B55A2B7C83920079AB07 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5592B7C83920079AB07 /* SceneDelegate.swift */; };
 		7984B55F2B7C83920079AB07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7984B55D2B7C83920079AB07 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		793843102B7F84AE000BDDF9 /* ReminderModelRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderModelRepository.swift; sourceTree = "<group>"; };
+		793843132B7F9AB5000BDDF9 /* DelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateProtocol.swift; sourceTree = "<group>"; };
 		7984B5542B7C83920079AB07 /* ReminderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReminderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7984B5572B7C83920079AB07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7984B5592B7C83920079AB07 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		793843122B7F9A89000BDDF9 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				793843132B7F9AB5000BDDF9 /* DelegateProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		7984B54B2B7C83920079AB07 = {
 			isa = PBXGroup;
 			children = (
@@ -112,7 +122,8 @@
 		7984B5562B7C83920079AB07 /* ReminderApp */ = {
 			isa = PBXGroup;
 			children = (
-				79DF41A52B7DF75700D49E35 /* Model */,
+				793843122B7F9A89000BDDF9 /* Protocol */,
+				79DF41A52B7DF75700D49E35 /* Realm */,
 				7984B57E2B7CA1C50079AB07 /* Enum */,
 				7984B56B2B7C8B2E0079AB07 /* Extension */,
 				7984B56C2B7C8B300079AB07 /* Base */,
@@ -211,13 +222,13 @@
 			path = List;
 			sourceTree = "<group>";
 		};
-		79DF41A52B7DF75700D49E35 /* Model */ = {
+		79DF41A52B7DF75700D49E35 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
 				79DF41A62B7DF77300D49E35 /* ReminderModel.swift */,
 				793843102B7F84AE000BDDF9 /* ReminderModelRepository.swift */,
 			);
-			path = Model;
+			path = Realm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,6 +339,7 @@
 				7984B59B2B7CD27B0079AB07 /* TagViewController.swift in Sources */,
 				7984B56E2B7C8B6F0079AB07 /* BaseView.swift in Sources */,
 				7984B5992B7CD26D0079AB07 /* DeadlineViewController.swift in Sources */,
+				793843142B7F9AB5000BDDF9 /* DelegateProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
