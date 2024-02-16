@@ -16,6 +16,7 @@ final class ReminderViewController: UIViewController, ReloadDelegate {
 
     let mainView = ReminderView()
     var data: Results<ReminderModel>!
+    let repository = ReminderModelRepository()
 
     override func loadView() {
         view = mainView
@@ -23,7 +24,7 @@ final class ReminderViewController: UIViewController, ReloadDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationTitle(title: "전체", isLarge: true)
+        setNavigationTitle(title: "Reminder", isLarge: true)
         setToolbar(items: mainView.setToolBar())
     
         let collectionView = mainView.collectionView
@@ -35,14 +36,12 @@ final class ReminderViewController: UIViewController, ReloadDelegate {
             vc.delegate = self
             self.present(nav, animated: true)
         }
-        receivedReminderData()
+        data = repository.read()
     }
-    
-    func receivedReminderData() {
-        let realm = try! Realm()
-        data = realm.objects(ReminderModel.self)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mainView.collectionView.reloadData()
     }
-    
     func reload() {
         mainView.collectionView.reloadData()
     }
@@ -60,6 +59,8 @@ extension ReminderViewController: UICollectionViewDelegate, UICollectionViewData
         cell.configureCell(index: indexPath.item)
         if indexPath.row == ReminderList.allCases.firstIndex(of: .all) {
             cell.reminderCount.text = "\(data.count)"
+        } else if indexPath.item == ReminderList.allCases.firstIndex(of: .done) {
+            cell.reminderCount.text = "\(data.filter{$0.isDone == true}.count)"
         }
 
         return cell
@@ -69,6 +70,7 @@ extension ReminderViewController: UICollectionViewDelegate, UICollectionViewData
         
         if indexPath.item == ReminderList.allCases.firstIndex(of: .all) {
             let vc = ReminderListViewController()
+            vc.navigationItem.title = ReminderList.all.rawValue
             navigationController?.pushViewController(vc, animated: true)
         }
     }
