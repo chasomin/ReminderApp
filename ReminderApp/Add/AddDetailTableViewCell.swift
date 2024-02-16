@@ -35,7 +35,6 @@ class AddDetailTableViewCell: BaseTableViewCell {
     override func configureView() {
         backgroundColor = .systemGray5
         accessoryType = .disclosureIndicator
-        selectionStyle = .none
         
         subTitle.font = .systemFont(ofSize: 13)
         subTitle.textColor = .lightGray

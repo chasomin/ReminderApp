@@ -27,9 +27,5 @@ class AddReminderMemoTableViewCell: BaseTableViewCell {
         textView.textColor = .white
         textView.backgroundColor = .clear
         backgroundColor = .systemGray5
-        
-        self.selectionStyle = .none
-        
-        
     }
 }

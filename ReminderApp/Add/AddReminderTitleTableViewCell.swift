@@ -28,8 +28,5 @@ class AddReminderTitleTableViewCell: BaseTableViewCell {
         textField.textColor = .white
         
         backgroundColor = .systemGray5
-        
-        self.selectionStyle = .none
-        
     }
 }
