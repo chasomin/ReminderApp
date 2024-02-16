@@ -67,23 +67,12 @@ extension ReminderListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ReminderListTableViewCell.id, for: indexPath) as! ReminderListTableViewCell
-        let row = data[indexPath.row]
-        cell.title.text = row.title
-        cell.deadline.text = row.deadline
         
-        switch row.priority {
-        case 0 :
-            cell.priority.text = "없음"
-        case 1:
-            cell.priority.text = "낮음"
-        case 2:
-            cell.priority.text = "중간"
-        case 3:
-            cell.priority.text = "높음"
-        default:
-            break
-            
-        }
+        
+        let row = data[indexPath.row]
+        
+        cell.configureCell(data: row)
+//        cell.isDoneButton.addTarget(self, action: #selector(isDoneButtonTapped), for: .touchUpInside)
         
         return cell
     }

@@ -22,7 +22,7 @@ class ReminderListView: BaseView {
     }
     
     override func configureView() {
-        tableView.rowHeight = 60
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .black
     }
 }

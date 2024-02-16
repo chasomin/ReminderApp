@@ -15,6 +15,7 @@ class ReminderModel: Object {
     @Persisted var deadline: String
     @Persisted var tag: String?
     @Persisted var priority: Int
+    @Persisted var isDone: Bool
 //    @Persisted var image
     
     
@@ -25,5 +26,6 @@ class ReminderModel: Object {
         self.deadline = deadline
         self.tag = tag
         self.priority = priority
+        self.isDone = false
     }
 }
