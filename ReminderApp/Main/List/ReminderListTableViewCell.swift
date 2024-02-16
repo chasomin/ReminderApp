@@ -8,14 +8,14 @@
 import UIKit
 import SnapKit
 
-class ReminderListTableViewCell: BaseTableViewCell {
+final class ReminderListTableViewCell: BaseTableViewCell {
     let isDoneButton = UIButton()
     let title = UILabel()
     let memo = UILabel()
     let tagLabel = UILabel()
     let deadline = UILabel()
     let priority = UILabel()
-    let repository = ReminderModelRepository()
+    private let repository = ReminderModelRepository()
     
     override func configureHierarchy() {
         contentView.addSubview(isDoneButton)

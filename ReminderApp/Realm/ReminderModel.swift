@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class ReminderModel: Object {
+final class ReminderModel: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var title: String
     @Persisted var memo: String?
@@ -19,7 +19,7 @@ class ReminderModel: Object {
 //    @Persisted var image
     
     
-    convenience init(title: String, memo: String? = nil, deadline: String, tag: String, priority: Int) {
+    convenience init(title: String, memo: String? = nil, deadline: String, tag: String?, priority: Int) {
         self.init()
         self.title = title
         self.memo = memo

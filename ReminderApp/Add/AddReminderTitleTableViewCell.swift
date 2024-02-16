@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class AddReminderTitleTableViewCell: BaseTableViewCell {
+final class AddReminderTitleTableViewCell: BaseTableViewCell {
 
     let textField = UITextField()
     

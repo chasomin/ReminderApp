@@ -10,9 +10,9 @@ import RealmSwift
 
 final class ReminderViewController: UIViewController, ReloadDelegate {
 
-    let mainView = ReminderView()
-    var data: Results<ReminderModel>!
-    let repository = ReminderModelRepository()
+    private let mainView = ReminderView()
+    private var data: Results<ReminderModel>!
+    private let repository = ReminderModelRepository()
 
     override func loadView() {
         view = mainView

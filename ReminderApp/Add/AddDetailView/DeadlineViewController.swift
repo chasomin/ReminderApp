@@ -8,11 +8,11 @@
 import UIKit
 import SnapKit
 
-class DeadlineViewController: BaseViewController {
+final class DeadlineViewController: BaseViewController {
 
-    let textField = UITextField()
-    let datePicker = UIDatePicker()
-    let format = DateFormatter()
+    private let textField = UITextField()
+    private let datePicker = UIDatePicker()
+    private let format = DateFormatter()
     
     var date: ((String) -> Void)?
     

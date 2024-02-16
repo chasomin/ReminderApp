@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class AddReminderMemoTableViewCell: BaseTableViewCell {
+final class AddReminderMemoTableViewCell: BaseTableViewCell {
 
     let textView = UITextView()
     

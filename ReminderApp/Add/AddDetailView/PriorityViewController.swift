@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-class PriorityViewController: BaseViewController {
+final class PriorityViewController: BaseViewController {
 
-    let segment = UISegmentedControl()
+    private let segment = UISegmentedControl()
     var priorityData: ((Int, String) -> Void)?
     
     override func viewDidLoad() {

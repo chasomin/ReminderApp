@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class AddReminderView: BaseView {
+final class AddReminderView: BaseView {
     
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
 

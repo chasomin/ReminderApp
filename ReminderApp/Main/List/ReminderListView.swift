@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ReminderListView: BaseView {
+final class ReminderListView: BaseView {
     let tableView = UITableView()
     
     override func configureHierarchy() {
