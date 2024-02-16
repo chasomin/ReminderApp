@@ -17,7 +17,7 @@ class ReminderListView: BaseView {
     
     override func configureLayout() {
         tableView.snp.makeConstraints { make in
-            make.edges.equalTo(safeAreaLayoutGuide)
+            make.edges.equalToSuperview()
         }
     }
     

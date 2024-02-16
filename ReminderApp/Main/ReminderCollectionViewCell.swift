@@ -28,7 +28,6 @@ final class ReminderCollectionViewCell: BaseCollectionViewCell {
         
         reminderCount.snp.makeConstraints { make in
             make.trailing.top.equalToSuperview().inset(10)
-            make.width.height.equalTo(35)
         }
         
         title.snp.makeConstraints { make in
