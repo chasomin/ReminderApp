@@ -8,8 +8,7 @@
 import UIKit
 import SnapKit
 
-
-class AddDetailTableViewCell: BaseTableViewCell {
+final class AddDetailTableViewCell: BaseTableViewCell {
     let title = UILabel()
     let subTitle = UILabel()
     
@@ -41,9 +40,23 @@ class AddDetailTableViewCell: BaseTableViewCell {
         subTitle.textAlignment = .right
     }
     
-    func configureCell(index: Int, data: [String:String]) {
-        title.text = AddReminderCellList.allCases[index-1].rawValue
-        subTitle.text = data[AddReminderCellList.allCases[index-1].rawValue]
+    func configureCell(index: Int, data: ReminderModel) {
+        title.text = AddReminderCellList.allCases[index].rawValue
+        var priorityString = ""
+        switch data.priority {
+        case 0 :
+            priorityString = "없음"
+        case 1:
+            priorityString = "낮음"
+        case 2:
+            priorityString = "중간"
+        case 3:
+            priorityString = "높음"
+        default:
+            break
+        }
+        let dataList = [data.deadline, data.tag, priorityString]
+        subTitle.text = dataList[index]
     }
     
 }

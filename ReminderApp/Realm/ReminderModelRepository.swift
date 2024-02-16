@@ -8,8 +8,8 @@
 import Foundation
 import RealmSwift
 
-class ReminderModelRepository {
-    let realm = try! Realm()
+final class ReminderModelRepository {
+    private let realm = try! Realm()
 
     // MARK: Create
     func createItem(_ item: ReminderModel) {
@@ -43,15 +43,18 @@ class ReminderModelRepository {
     }
     
     // MARK: Update
-//    func updateItem() {
-//        do {
-//            try realm.write {
-//                realm.create(ReminderModel.self, value: <#T##Any#>, update: .modified)
-//            }
-//        } catch {
-//            
-//        }
-//    }
+    func updateItem(id: ObjectId, title: String, memo: String?, deadline: String, tag: String?, priority: Int) {
+        do {
+            try realm.write {
+                realm.create(ReminderModel.self,
+                             value: ["id":id, "title": title, "memo": memo, "deadline": deadline, "tag": tag, "priority": priority],
+                             update: .modified)
+
+            }
+        } catch {
+            
+        }
+    }
     
     func updateIsDone(_ item: ReminderModel) {
         do {

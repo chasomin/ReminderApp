@@ -6,19 +6,18 @@
 //
 
 import UIKit
+import RealmSwift
 
-class AddReminderViewController: UIViewController {
+final class AddReminderViewController: UIViewController {
     
-    let mainView = AddReminderView()
-    var data: [String:String] = [AddReminderCellList.deadline.rawValue:"", AddReminderCellList.tag.rawValue: "", AddReminderCellList.priority.rawValue: "", AddReminderCellList.image.rawValue: ""] {
-        didSet {
-            mainView.tableView.reloadData()
-        }
-    }
+    private let mainView = AddReminderView()
     var realmData: ReminderModel = ReminderModel(title: "", memo: "", deadline: "마감일 없음", tag: "", priority: 0)
     var delegate: ReloadDelegate?
-    var barButton = UIBarButtonItem()
-    let repository = ReminderModelRepository()
+    private var barButton = UIBarButtonItem()
+    var navigationRigthButtonTitle = "추가"
+    var barButtonIsEnabled = false
+    var id: ObjectId = ObjectId()
+    private let repository = ReminderModelRepository()
     
     override func loadView() {
         view = mainView
@@ -28,8 +27,10 @@ class AddReminderViewController: UIViewController {
         super.viewDidLoad()
 
         setNavigationTitle(title: "새로운 할 일", isLarge: false)
-        setNavigationRightBarButton(button: &barButton, title: "추가", action: #selector(addButtonTapped))
-        barButton.isEnabled = false
+        setNavigationRightBarButton(button: &barButton,
+                                    title: navigationRigthButtonTitle,
+                                    action: navigationRigthButtonTitle == "추가" ? #selector(addButtonTapped) : #selector(updateButtonTapped))
+        barButton.isEnabled = barButtonIsEnabled
         
         setNavigationLeftBarButton(title: "취소", action: #selector(cancelButtonTapped))
         
@@ -41,9 +42,19 @@ class AddReminderViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(TagMessageReceivedNotification), name: NSNotification.Name("TagMessage"), object: nil)
     }
     
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        mainView.tableView.reloadData()
+    }
+    
     @objc func addButtonTapped() {
         repository.createItem(realmData)
+        delegate?.reload()
+        dismiss(animated: true)
+    }
+    
+    @objc func updateButtonTapped() {
+        repository.updateItem(id: id, title: realmData.title, memo: realmData.memo, deadline: realmData.deadline, tag: realmData.tag, priority: realmData.priority)
         delegate?.reload()
         dismiss(animated: true)
     }
@@ -54,7 +65,6 @@ class AddReminderViewController: UIViewController {
     
     @objc func TagMessageReceivedNotification(notification: NSNotification) {
         if let value = notification.userInfo?["tag"] as? String {
-            data[AddReminderCellList.tag.rawValue] = value
             realmData.tag = value
         }
     }
@@ -66,7 +76,7 @@ class AddReminderViewController: UIViewController {
 extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        5
+        4
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
@@ -83,18 +93,22 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: AddReminderTitleTableViewCell.id, for: indexPath) as! AddReminderTitleTableViewCell
                 cell.textField.delegate = self
+                cell.textField.text = realmData.title
                 return cell
                 
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: AddReminderMemoTableViewCell.id, for: indexPath) as! AddReminderMemoTableViewCell
                 cell.textView.delegate = self
-                print(cell.textView.text)
+                cell.textView.text = realmData.memo ?? ""
                 return cell
             }
         } else {
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: AddDetailTableViewCell.id, for: indexPath) as! AddDetailTableViewCell
-            cell.configureCell(index: indexPath.section, data: data)
+            for i in 0..<AddReminderCellList.allCases.count {
+                if indexPath.section == i+1 {
+                    cell.configureCell(index: i, data: realmData)
+                }
+            }
         
             return cell
         }
@@ -112,7 +126,6 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
         if indexPath.section == 1 {
             let vc = DeadlineViewController()
             vc.date = { value in
-                self.data[AddReminderCellList.deadline.rawValue] = value
                 self.realmData.deadline = value
             }
             navigationController?.pushViewController(vc, animated: true)
@@ -122,12 +135,12 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
         } else if indexPath.section == 3 {
             let vc = PriorityViewController()
             vc.priorityData = { index, text in
-                self.data[AddReminderCellList.priority.rawValue] = text
                 self.realmData.priority = index
+                print(index)
             }
             navigationController?.pushViewController(vc, animated: true)
         } else if indexPath.section == 4 {
-            navigationController?.pushViewController(ImageViewController(), animated: true)
+//            navigationController?.pushViewController(ImageViewController(), animated: true)
         }
     }
 }

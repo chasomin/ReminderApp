@@ -8,15 +8,15 @@
 import UIKit
 import RealmSwift
 
-class ReminderListViewController: UIViewController {
-    
-    let mainView = ReminderListView()
-    var data: Results<ReminderModel>! {
+final class ReminderListViewController: UIViewController, ReloadDelegate {
+
+    private let mainView = ReminderListView()
+    private var data: Results<ReminderModel>! {
         didSet {
             mainView.tableView.reloadData() //???: 필터엔 왜 잘 되지
         }
     }
-    let repository = ReminderModelRepository()
+    private let repository = ReminderModelRepository()
 
     override func loadView() {
         view = mainView
@@ -51,12 +51,17 @@ class ReminderListViewController: UIViewController {
                                 options: .destructive,
                                 children: [deadline, title, priority])
     }
+    
+    func reload() {
+        mainView.tableView.reloadData()
+    }
+
     @objc func isDoneButtonTapped(_ sender: UIButton) {
-        print("체크")
-        //update
         repository.updateIsDone(data[sender.tag])
         mainView.tableView.reloadData()
     }
+    
+
 }
 
 extension ReminderListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -88,6 +93,16 @@ extension ReminderListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 수정 뷰 이동 -> Realm Update, Realm Delete
+        
+        let vc = AddReminderViewController()
+        vc.navigationRigthButtonTitle = "수정"
+        vc.barButtonIsEnabled = true
+        vc.delegate = self
+        vc.id = data[indexPath.row].id
+        let row = data[indexPath.row]
+        vc.realmData = ReminderModel(title: row.title, memo: row.memo, deadline: row.deadline, tag: row.tag, priority: row.priority)
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
     }
     
 }
