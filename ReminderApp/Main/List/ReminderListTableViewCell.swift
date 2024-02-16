@@ -15,6 +15,7 @@ class ReminderListTableViewCell: BaseTableViewCell {
     let tagLabel = UILabel()
     let deadline = UILabel()
     let priority = UILabel()
+    let repository = ReminderModelRepository()
     
     override func configureHierarchy() {
         contentView.addSubview(isDoneButton)
@@ -37,7 +38,6 @@ class ReminderListTableViewCell: BaseTableViewCell {
         }
         memo.snp.makeConstraints { make in
             make.top.equalTo(title.snp.bottom).offset(5)
-//            make.height.equalTo(14)
             make.horizontalEdges.equalTo(title)
         }
         deadline.snp.makeConstraints { make in
@@ -89,7 +89,7 @@ class ReminderListTableViewCell: BaseTableViewCell {
     func configureCell(data: ReminderModel) {
         let config = UIImage.SymbolConfiguration(scale: .large)
         let unfinishedImage = UIImage(systemName: "circle",withConfiguration: config)
-        let doneImage = UIImage(systemName: "circle.fill",withConfiguration: config)
+        let doneImage = UIImage(systemName: "checkmark.circle.fill",withConfiguration: config)
         
         if data.isDone {
             isDoneButton.setImage(doneImage, for: .normal)
@@ -105,19 +105,10 @@ class ReminderListTableViewCell: BaseTableViewCell {
         } else {
             tagLabel.text = ""
         }
-        isDoneButton.addTarget(self, action: #selector(isDoneButtonTapped), for: .touchUpInside)
-        
         var priorityText = ""
-        for i in 0..<data.priority {
+        for _ in 0..<data.priority {
             priorityText += "!"
         }
         priority.text = priorityText
     }
-    
-    @objc func isDoneButtonTapped() {
-        print("체크")
-        //update
-        
-    }
-
 }

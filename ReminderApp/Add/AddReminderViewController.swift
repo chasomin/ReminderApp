@@ -6,24 +6,20 @@
 //
 
 import UIKit
-import RealmSwift
 
 class AddReminderViewController: UIViewController {
     
     let mainView = AddReminderView()
-
     var data: [String:String] = [AddReminderCellList.deadline.rawValue:"", AddReminderCellList.tag.rawValue: "", AddReminderCellList.priority.rawValue: "", AddReminderCellList.image.rawValue: ""] {
         didSet {
             mainView.tableView.reloadData()
         }
     }
-    
-    var realmData: ReminderModel = ReminderModel(title: "", memo: "", deadline: "", tag: "", priority: 0)
-
+    var realmData: ReminderModel = ReminderModel(title: "", memo: "", deadline: "마감일 없음", tag: "", priority: 0)
     var delegate: ReloadDelegate?
-    
     var barButton = UIBarButtonItem()
-
+    let repository = ReminderModelRepository()
+    
     override func loadView() {
         view = mainView
     }
@@ -43,21 +39,14 @@ class AddReminderViewController: UIViewController {
         tableView.register(AddDetailTableViewCell.self, forCellReuseIdentifier: AddDetailTableViewCell.id)
         
         NotificationCenter.default.addObserver(self, selector: #selector(TagMessageReceivedNotification), name: NSNotification.Name("TagMessage"), object: nil)
-        
-        
     }
     
 
     @objc func addButtonTapped() {
-        let realm = try! Realm()
-        print(realm.configuration.fileURL)
-        try! realm.write {
-            realm.add(realmData)
-        }
+        repository.createItem(realmData)
         delegate?.reload()
         dismiss(animated: true)
     }
-    
     
     @objc func cancelButtonTapped() {
         dismiss(animated: true)
@@ -67,7 +56,6 @@ class AddReminderViewController: UIViewController {
         if let value = notification.userInfo?["tag"] as? String {
             data[AddReminderCellList.tag.rawValue] = value
             realmData.tag = value
-            
         }
     }
 }
@@ -92,28 +80,17 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            
-            
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: AddReminderTitleTableViewCell.id, for: indexPath) as! AddReminderTitleTableViewCell
-                realmData.title = cell.textField.text!
-                print(realmData.title)
-                
-                    
                 cell.textField.delegate = self
                 return cell
                 
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: AddReminderMemoTableViewCell.id, for: indexPath) as! AddReminderMemoTableViewCell
-
-                
-                realmData.memo = cell.textView.text
+                cell.textView.delegate = self
+                print(cell.textView.text)
                 return cell
-
             }
-            
-            
-            
         } else {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: AddDetailTableViewCell.id, for: indexPath) as! AddDetailTableViewCell
@@ -145,7 +122,6 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
         } else if indexPath.section == 3 {
             let vc = PriorityViewController()
             vc.priorityData = { index, text in
-                
                 self.data[AddReminderCellList.priority.rawValue] = text
                 self.realmData.priority = index
             }
@@ -157,11 +133,18 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
 }
 
 extension AddReminderViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField.text != "" {
+            realmData.title = textField.text!
             barButton.isEnabled = true
         } else {
             barButton.isEnabled = false
         }
+    }
+}
+
+extension AddReminderViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        realmData.memo = textView.text
     }
 }
