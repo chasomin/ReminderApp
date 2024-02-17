@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RealmSwift
 
 final class ReminderCollectionViewCell: BaseCollectionViewCell {
     let iconImageView = CircleImageView(frame: .zero)
@@ -51,13 +52,14 @@ final class ReminderCollectionViewCell: BaseCollectionViewCell {
 }
 
 extension ReminderCollectionViewCell {
-    func configureCell(index: Int) {
+    func configureCell(index: Int, data: Results<ReminderModel>) {
         let value = ReminderList.allCases[index]
         
         iconImageView.image.image = value.image
         iconImageView.backgroundColor = value.color
         title.text = value.rawValue
         
-        reminderCount.text = "0"
+        let count = ReminderList.allCases[index].getReminderCount(data: data)
+        reminderCount.text = "\(count)"
     }
 }

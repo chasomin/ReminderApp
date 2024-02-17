@@ -52,13 +52,8 @@ extension ReminderViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReminderCollectionViewCell.id, for: indexPath) as! ReminderCollectionViewCell
         
-        cell.configureCell(index: indexPath.item)
-        if indexPath.row == ReminderList.allCases.firstIndex(of: .all) {
-            cell.reminderCount.text = "\(data.count)"
-        } else if indexPath.item == ReminderList.allCases.firstIndex(of: .done) {
-            cell.reminderCount.text = "\(data.filter{$0.isDone == true}.count)"
-        }
-
+        cell.configureCell(index: indexPath.item, data: data)
+        
         return cell
     }
     
