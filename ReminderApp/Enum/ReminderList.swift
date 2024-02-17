@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 enum ReminderList: String, CaseIterable {
     case today = "오늘"
@@ -41,6 +42,28 @@ enum ReminderList: String, CaseIterable {
             UIColor.systemYellow
         case .done:
             UIColor.systemGray
+        }
+    }
+    
+    func getReminderCount(data: Results<ReminderModel>) -> Int{
+        switch self {
+        case .today:
+            let format = DateFormatter()
+            format.dateFormat = "yy년 MM월 dd일"
+            format.timeZone = TimeZone(identifier: "Asia/Seoul")
+            let today = format.string(from: Date())
+            let result = data.filter {
+                $0.deadline.contains(today)
+            }
+            return result.count
+        case .schedule:
+            return 0 //
+        case .all:
+            return data.count
+        case .flag:
+            return 0
+        case .done:
+            return data.filter{$0.isDone == true}.count
         }
     }
 }
