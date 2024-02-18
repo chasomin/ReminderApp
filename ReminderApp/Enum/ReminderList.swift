@@ -45,7 +45,7 @@ enum ReminderList: String, CaseIterable {
         }
     }
     
-    func getReminderCount(data: Results<ReminderModel>) -> Int{
+    func getReminderCount(data: Results<ReminderModel>) -> Int {
         switch self {
         case .today:
             let format = DateFormatter()

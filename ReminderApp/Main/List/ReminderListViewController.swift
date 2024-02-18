@@ -11,7 +11,7 @@ import RealmSwift
 final class ReminderListViewController: UIViewController, ReloadDelegate {
 
     private let mainView = ReminderListView()
-    private var data: Results<ReminderModel>! {
+    var data: Results<ReminderModel>! {
         didSet {
             mainView.tableView.reloadData() //???: 필터엔 왜 잘 되지
         }
@@ -28,7 +28,7 @@ final class ReminderListViewController: UIViewController, ReloadDelegate {
         let tableView = mainView.tableView
         setTableView(tableView: tableView, delegate: self, dataSource: self, cell: ReminderListTableViewCell.self, id: ReminderListTableViewCell.id)
         
-        data = repository.read()
+//        data = repository.read()
         
         setRightPullDownButton()
     }
