@@ -80,11 +80,9 @@ extension ReminderListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .normal, title: "삭제") { (_, _, success: @escaping (Bool) -> Void) in
-            print("삭제 클릭 됨")
+        let delete = UIContextualAction(style: .normal, title: "삭제") { _, _, _ in
             self.repository.deleteItem(self.data[indexPath.row])
             tableView.reloadData()
-            success(true)
         }
         delete.backgroundColor = .systemRed
         
@@ -98,9 +96,12 @@ extension ReminderListViewController: UITableViewDelegate, UITableViewDataSource
         vc.navigationRigthButtonTitle = "수정"
         vc.barButtonIsEnabled = true
         vc.delegate = self
+        vc.deleteButtonIsHidden = false
         vc.id = data[indexPath.row].id
         let row = data[indexPath.row]
         vc.realmData = ReminderModel(title: row.title, memo: row.memo, deadline: row.deadline, tag: row.tag, priority: row.priority)
+        /// 수정할 때는 row 로 data 그대로 넘기면, 읽으면서 수정하려고 해서 오류남 -> 수정할 때 데이터 따로 삭제할 때 데이터 따로 넘기는 방법 밖에 없나??
+        vc.deleteData = row
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
     }

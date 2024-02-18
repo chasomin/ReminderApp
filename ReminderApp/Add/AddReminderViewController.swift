@@ -12,11 +12,13 @@ final class AddReminderViewController: UIViewController {
     
     private let mainView = AddReminderView()
     var realmData: ReminderModel = ReminderModel(title: "", memo: "", deadline: "마감일 없음", tag: "", priority: 0)
+    var deleteData: ReminderModel = ReminderModel(title: "", memo: "", deadline: "", tag: "", priority: 0)
     var delegate: ReloadDelegate?
     private var barButton = UIBarButtonItem()
     var navigationRigthButtonTitle = "추가"
     var barButtonIsEnabled = false
     var id: ObjectId = ObjectId()
+    var deleteButtonIsHidden = true
     private let repository = ReminderModelRepository()
     
     override func loadView() {
@@ -33,18 +35,21 @@ final class AddReminderViewController: UIViewController {
         barButton.isEnabled = barButtonIsEnabled
         
         setNavigationLeftBarButton(title: "취소", action: #selector(cancelButtonTapped))
+        mainView.deleteButton.isHidden = deleteButtonIsHidden
+        mainView.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         
         let tableView = mainView.tableView
         setTableView(tableView: tableView, delegate: self, dataSource: self, cell: AddReminderTitleTableViewCell.self, id: AddReminderTitleTableViewCell.id)
         tableView.register(AddReminderMemoTableViewCell.self, forCellReuseIdentifier: AddReminderMemoTableViewCell.id)
         tableView.register(AddDetailTableViewCell.self, forCellReuseIdentifier: AddDetailTableViewCell.id)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(TagMessageReceivedNotification), name: NSNotification.Name("TagMessage"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tagMessageReceivedNotification), name: NSNotification.Name("TagMessage"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         mainView.tableView.reloadData()
+        print(realmData)
     }
     
     @objc func addButtonTapped() {
@@ -63,10 +68,16 @@ final class AddReminderViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc func TagMessageReceivedNotification(notification: NSNotification) {
+    @objc func tagMessageReceivedNotification(notification: NSNotification) {
         if let value = notification.userInfo?["tag"] as? String {
             realmData.tag = value
         }
+    }
+    
+    @objc func deleteButtonTapped() {
+        repository.deleteItem(deleteData)
+        dismiss(animated: true)
+        delegate?.reload()
     }
 }
 
