@@ -10,12 +10,8 @@ import RealmSwift
 
 final class ReminderListViewController: UIViewController, ReloadDelegate {
 
-    private let mainView = ReminderListView()
-    var data: Results<ReminderModel>! {
-        didSet {
-            mainView.tableView.reloadData() //???: 필터엔 왜 잘 되지
-        }
-    }
+    let mainView = ReminderListView()
+    var data: Results<ReminderModel>!
     private let repository = ReminderModelRepository()
 
     override func loadView() {
@@ -27,9 +23,8 @@ final class ReminderListViewController: UIViewController, ReloadDelegate {
         
         let tableView = mainView.tableView
         setTableView(tableView: tableView, delegate: self, dataSource: self, cell: ReminderListTableViewCell.self, id: ReminderListTableViewCell.id)
-        
-//        data = repository.read()
-        
+
+        mainView.searchBar.delegate = self
         setRightPullDownButton()
     }
 
@@ -108,3 +103,14 @@ extension ReminderListViewController: UITableViewDelegate, UITableViewDataSource
     
 }
 
+extension ReminderListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        data = repository.readFilterSearch(text: searchBar.text!)
+        mainView.tableView.reloadData()
+
+        if searchText.isEmpty {
+            data = repository.read()
+            mainView.tableView.reloadData()
+        }
+    }
+}

@@ -84,6 +84,12 @@ final class ReminderModelRepository {
         }
     }
     
+    func readFilterSearch(text: String) -> Results<ReminderModel> {
+        realm.objects(ReminderModel.self).where {
+            $0.title.contains(text, options: .caseInsensitive)
+        }
+    }
+    
     // MARK: Update
     func updateItem(id: ObjectId, title: String, memo: String?, deadline: String, tag: String?, priority: Int) {
         do {

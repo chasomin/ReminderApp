@@ -9,19 +9,29 @@ import UIKit
 import SnapKit
 
 final class ReminderListView: BaseView {
+    let stackView = UIStackView()
+    let searchBar = UISearchBar()
     let tableView = UITableView()
     
     override func configureHierarchy() {
-        addSubview(tableView)
+        addSubview(stackView)
+        stackView.addArrangedSubview(searchBar)
+        stackView.addArrangedSubview(tableView)
     }
     
     override func configureLayout() {
-        tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        stackView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide)
         }
     }
     
     override func configureView() {
+        stackView.axis = .vertical
+        stackView.spacing = 0
+        stackView.alignment = .fill
+        
+        searchBar.placeholder = "할 일 검색"
+        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .black
     }

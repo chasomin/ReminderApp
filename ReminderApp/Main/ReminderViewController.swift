@@ -59,12 +59,13 @@ extension ReminderViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: 각각 조건에 맞는 할일들 필터링해서 목록 보여주기
-
-//        if indexPath.item == ReminderList.allCases.firstIndex(of: .all) {
-            let vc = ReminderListViewController()
+        let vc = ReminderListViewController()
         vc.data = repository.read(filter: ReminderList.allCases[indexPath.item])
-            vc.navigationItem.title = ReminderList.allCases[indexPath.item].rawValue
-            navigationController?.pushViewController(vc, animated: true)
-//        }
+        if indexPath.item != ReminderList.allCases.firstIndex(of: .all) {
+            vc.mainView.searchBar.isHidden = true
+        }
+        vc.navigationItem.title = ReminderList.allCases[indexPath.item].rawValue
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
 }
