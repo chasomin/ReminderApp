@@ -57,7 +57,15 @@ enum ReminderList: String, CaseIterable {
             }
             return result.count
         case .schedule:
-            return 0 //
+            let format = DateFormatter()
+            format.dateFormat = "yy년 MM월 dd일"
+            let result = data.filter {
+                let deadline = format.date(from: $0.deadline)
+                let today = Date()
+                let koreaDate = today.addingTimeInterval(TimeInterval(9*60*60))
+                return deadline?.compare(koreaDate) == .orderedDescending
+            }
+            return result.count
         case .all:
             return data.count
         case .flag:

@@ -49,7 +49,6 @@ final class AddReminderViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         mainView.tableView.reloadData()
-        print(realmData)
     }
     
     @objc func addButtonTapped() {
