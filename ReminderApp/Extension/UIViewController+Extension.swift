@@ -29,16 +29,22 @@ extension UIViewController {
         tableView.register(cell, forCellReuseIdentifier: id)
     }
     
-    func setNavigationRightBarButton(button: inout UIBarButtonItem ,title: String, action: Selector?) {
+    func setNavigationRightBarButton(button: inout UIBarButtonItem ,title: String?, image: UIImage?, action: Selector?) {
         button = UIBarButtonItem(title: title, style: .plain, target: self, action: action)
         navigationItem.rightBarButtonItem = button
     }
     
-    func setNavigationLeftBarButton(title: String, action: Selector?) {
-        let barButton = UIBarButtonItem(title: title, style: .plain, target: self, action: action)
-        navigationItem.leftBarButtonItem = barButton
+    func setNavigationLeftBarButton(title: String?, image: UIImage?, action: Selector?) {
+        if title == nil {
+            let barButton = UIBarButtonItem(image: image, style: .plain, target: self, action: action)
+            navigationItem.leftBarButtonItem = barButton
+        } else {
+            let barButton = UIBarButtonItem(title: title, style: .plain, target: self, action: action)
+            navigationItem.leftBarButtonItem = barButton
+        }
+        
     }
-    
+
     func showAlert(style: UIAlertController.Style, title: String?, message: String?, buttons: [UIAlertAction]) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
 

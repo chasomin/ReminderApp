@@ -25,13 +25,14 @@ final class ReminderListViewController: UIViewController, ReloadDelegate {
         setTableView(tableView: tableView, delegate: self, dataSource: self, cell: ReminderListTableViewCell.self, id: ReminderListTableViewCell.id)
 
         mainView.searchBar.delegate = self
+        
         setRightPullDownButton()
-
     }
 
     func setRightPullDownButton() {
         let barButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis"),primaryAction: nil)
-        navigationItem.rightBarButtonItem = barButton
+        var calendarButton = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarButtonTapped))
+        navigationItem.rightBarButtonItems = [barButton, calendarButton]
         
         let deadline = UIAction(title: "마감일 순") { _ in
             self.data = self.data.sorted(byKeyPath: "deadline", ascending: true)
@@ -64,6 +65,15 @@ final class ReminderListViewController: UIViewController, ReloadDelegate {
         mainView.tableView.reloadData()
     }
     
+    @objc func calendarButtonTapped() {
+        print(#function)
+        let vc = CalendarViewController()
+        vc.calendarData = { value in
+            self.data = value
+            self.mainView.tableView.reloadData()
+        }
+        present(vc, animated: true)
+    }
 
 }
 

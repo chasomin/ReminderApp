@@ -35,11 +35,11 @@ final class AddReminderViewController: UIViewController {
 
         setNavigationTitle(title: "새로운 할 일", isLarge: false)
         setNavigationRightBarButton(button: &barButton,
-                                    title: navigationRigthButtonTitle,
+                                    title: navigationRigthButtonTitle, image: nil,
                                     action: navigationRigthButtonTitle == "추가" ? #selector(addButtonTapped) : #selector(updateButtonTapped))
         barButton.isEnabled = barButtonIsEnabled
         
-        setNavigationLeftBarButton(title: "취소", action: #selector(cancelButtonTapped))
+        setNavigationLeftBarButton(title: "취소", image: nil, action: #selector(cancelButtonTapped))
         mainView.deleteButton.isHidden = deleteButtonIsHidden
         mainView.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         
