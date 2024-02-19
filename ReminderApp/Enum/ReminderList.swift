@@ -46,32 +46,19 @@ enum ReminderList: String, CaseIterable {
     }
     
     func getReminderCount(data: Results<ReminderModel>) -> Int {
+        let realm = try! Realm()
+        let repository = ReminderModelRepository()
         switch self {
         case .today:
-            let format = DateFormatter()
-            format.dateFormat = "yy년 MM월 dd일"
-            format.timeZone = TimeZone(identifier: "Asia/Seoul")
-            let today = format.string(from: Date())
-            let result = data.filter {
-                $0.deadline.contains(today)
-            }
-            return result.count
+            return repository.read(filter: .today).count
         case .schedule:
-            let format = DateFormatter()
-            format.dateFormat = "yy년 MM월 dd일"
-            let result = data.filter {
-                let deadline = format.date(from: $0.deadline)
-                let today = Date()
-                let koreaDate = today.addingTimeInterval(TimeInterval(9*60*60))
-                return deadline?.compare(koreaDate) == .orderedDescending
-            }
-            return result.count
+            return repository.read(filter: .schedule).count
         case .all:
-            return data.count
+            return repository.read(filter: .all).count
         case .flag:
-            return 0
+            return repository.read(filter: .flag).count
         case .done:
-            return data.filter{$0.isDone == true}.count
+            return repository.read(filter: .done).count
         }
     }
 }
