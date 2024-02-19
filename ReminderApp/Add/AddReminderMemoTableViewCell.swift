@@ -18,8 +18,9 @@ final class AddReminderMemoTableViewCell: BaseTableViewCell {
     
     override func configureLayout() {
         textView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(5)
-            
+            make.height.equalTo(100)
+            make.horizontalEdges.equalToSuperview().inset(10)
+            make.verticalEdges.equalToSuperview()
         }
     }
     //TODO: 플레이스홀더
@@ -27,5 +28,11 @@ final class AddReminderMemoTableViewCell: BaseTableViewCell {
         textView.textColor = .white
         textView.backgroundColor = .clear
         backgroundColor = .systemGray5
+    }
+    
+    func configureCell(text: String, delegate: UITextViewDelegate) {
+        textView.delegate = delegate
+        textView.text = text
+
     }
 }
