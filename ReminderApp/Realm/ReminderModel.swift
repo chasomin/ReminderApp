@@ -12,15 +12,16 @@ final class ReminderModel: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var title: String
     @Persisted var memo: String?
-    @Persisted var deadline: String
+    @Persisted var deadline: Date
     @Persisted var tag: String?
     @Persisted var priority: Int
     @Persisted var isDone: Bool
 //    @Persisted var image
     
     
-    convenience init(title: String, memo: String? = nil, deadline: String, tag: String?, priority: Int) {
+    convenience init(title: String, memo: String? = nil, deadline: Date, tag: String?, priority: Int) {
         self.init()
+
         self.title = title
         self.memo = memo
         self.deadline = deadline

@@ -14,7 +14,7 @@ final class DeadlineViewController: BaseViewController {
     private let datePicker = UIDatePicker()
     private let format = DateFormatter()
     
-    var date: ((String) -> Void)?
+    var date: ((Date) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +24,7 @@ final class DeadlineViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        date?(textField.text!)
+        date?(datePicker.date)
         print(textField.text!)
     }
     
