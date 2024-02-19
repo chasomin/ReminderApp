@@ -38,4 +38,17 @@ extension UIViewController {
         let barButton = UIBarButtonItem(title: title, style: .plain, target: self, action: action)
         navigationItem.leftBarButtonItem = barButton
     }
+    
+    func showAlert(style: UIAlertController.Style, title: String?, message: String?, buttons: [UIAlertAction]) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        alert.addAction(cancel)
+        buttons.forEach {
+            alert.addAction($0)
+        }
+
+        present(alert, animated: true)
+    }
 }
