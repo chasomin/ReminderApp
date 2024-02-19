@@ -11,10 +11,16 @@ import SnapKit
 final class AddDetailTableViewCell: BaseTableViewCell {
     let title = UILabel()
     let subTitle = UILabel()
+    let image = UIImageView()
+    
+    let stackView = UIStackView()
+    
     
     override func configureHierarchy() {
         contentView.addSubview(title)
-        contentView.addSubview(subTitle)
+        contentView.addSubview(stackView)
+        stackView.addArrangedSubview(subTitle)
+        stackView.addArrangedSubview(image)
     }
     
     override func configureLayout() {
@@ -22,12 +28,16 @@ final class AddDetailTableViewCell: BaseTableViewCell {
             make.verticalEdges.equalToSuperview().inset(10)
             make.leading.equalToSuperview().inset(15)
             make.width.equalTo(80)
-            
         }
-        subTitle.snp.makeConstraints { make in
+        
+        stackView.snp.makeConstraints { make in
             make.leading.equalTo(title.snp.trailing).offset(5)
             make.verticalEdges.equalToSuperview().inset(10)
             make.trailing.equalToSuperview().inset(15)
+        }
+        
+        image.snp.makeConstraints { make in
+            make.width.equalTo(image.snp.height)
         }
     }
 
@@ -38,25 +48,18 @@ final class AddDetailTableViewCell: BaseTableViewCell {
         subTitle.font = .systemFont(ofSize: 13)
         subTitle.textColor = .lightGray
         subTitle.textAlignment = .right
+        
+        stackView.axis = .horizontal
+        stackView.spacing = 5
+        stackView.distribution = .fill
+        
+        image.isHidden = true
     }
     
-    func configureCell(index: Int, data: ReminderModel) {
-        title.text = AddReminderCellList.allCases[index].rawValue
-        var priorityString = ""
-        switch data.priority {
-        case 0 :
-            priorityString = "없음"
-        case 1:
-            priorityString = "낮음"
-        case 2:
-            priorityString = "중간"
-        case 3:
-            priorityString = "높음"
-        default:
-            break
-        }
-        let dataList = [data.deadline, data.tag, priorityString]
-        subTitle.text = dataList[index]
+    func configureCell(cellList: AddReminderCellList, data: ReminderModel, image: UIImage) {
+        title.text = cellList.title
+        subTitle.text = cellList.setSubTitle(data: data)
+        self.image.image = image
     }
     
 }
