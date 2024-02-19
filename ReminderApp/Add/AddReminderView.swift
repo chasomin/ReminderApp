@@ -35,6 +35,7 @@ final class AddReminderView: BaseView {
         tableView.backgroundColor = .black
         tableView.separatorStyle = .singleLine
         
+
         deleteButton.setTitle("삭제", for: .normal)
         deleteButton.layer.cornerRadius = 10
         deleteButton.layer.borderColor = UIColor.white.cgColor

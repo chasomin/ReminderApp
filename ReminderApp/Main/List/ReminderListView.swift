@@ -12,6 +12,7 @@ final class ReminderListView: BaseView {
     let stackView = UIStackView()
     let searchBar = UISearchBar()
     let tableView = UITableView()
+    // TODO: UISearchController
     
     override func configureHierarchy() {
         addSubview(stackView)
@@ -31,6 +32,7 @@ final class ReminderListView: BaseView {
         stackView.alignment = .fill
         
         searchBar.placeholder = "할 일 검색"
+        searchBar.barTintColor = .black
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .black
