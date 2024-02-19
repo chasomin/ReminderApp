@@ -11,8 +11,8 @@ import RealmSwift
 final class AddReminderViewController: UIViewController {
     
     private let mainView = AddReminderView()
-    var realmData: ReminderModel = ReminderModel(title: "", memo: "", deadline: "마감일 없음", tag: "", priority: 0)
-    var deleteData: ReminderModel = ReminderModel(title: "", memo: "", deadline: "", tag: "", priority: 0)
+    var realmData: ReminderModel = ReminderModel(title: "", memo: "", deadline: Date(), tag: "", priority: 0)
+    var deleteData: ReminderModel = ReminderModel(title: "", memo: "", deadline: Date(), tag: "", priority: 0)
     var delegate: ReloadDelegate?
     private var barButton = UIBarButtonItem()
     var navigationRigthButtonTitle = "추가"
@@ -20,6 +20,11 @@ final class AddReminderViewController: UIViewController {
     var id: ObjectId = ObjectId()
     var deleteButtonIsHidden = true
     private let repository = ReminderModelRepository()
+    var pickedImage = UIImage() {
+        didSet {
+            mainView.tableView.reloadData()
+        }
+    }
     
     override func loadView() {
         view = mainView
@@ -44,6 +49,8 @@ final class AddReminderViewController: UIViewController {
         tableView.register(AddDetailTableViewCell.self, forCellReuseIdentifier: AddDetailTableViewCell.id)
         
         NotificationCenter.default.addObserver(self, selector: #selector(tagMessageReceivedNotification), name: NSNotification.Name("TagMessage"), object: nil)
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,12 +60,14 @@ final class AddReminderViewController: UIViewController {
     
     @objc func addButtonTapped() {
         repository.createItem(realmData)
+        saveImageToDocument(image: pickedImage, filename: "\(realmData.id)")
         delegate?.reload()
         dismiss(animated: true)
     }
     
     @objc func updateButtonTapped() {
         repository.updateItem(id: id, title: realmData.title, memo: realmData.memo, deadline: realmData.deadline, tag: realmData.tag, priority: realmData.priority)
+        saveImageToDocument(image: pickedImage, filename: "\(id)")
         delegate?.reload()
         dismiss(animated: true)
     }
@@ -73,6 +82,7 @@ final class AddReminderViewController: UIViewController {
         }
     }
     
+    //TODO: 도큐먼트 에서 이미지 삭제하기
     @objc func deleteButtonTapped() {
         repository.deleteItem(deleteData)
         dismiss(animated: true)
@@ -86,7 +96,7 @@ final class AddReminderViewController: UIViewController {
 extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        4
+        AddReminderCellList.allCases.count + 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
@@ -98,38 +108,43 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+                
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: AddReminderTitleTableViewCell.id, for: indexPath) as! AddReminderTitleTableViewCell
-                cell.textField.delegate = self
-                cell.textField.text = realmData.title
+                cell.configureCell(text: realmData.title, delegate: self)
                 return cell
                 
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: AddReminderMemoTableViewCell.id, for: indexPath) as! AddReminderMemoTableViewCell
-                cell.textView.delegate = self
-                cell.textView.text = realmData.memo ?? ""
+                cell.configureCell(text: realmData.memo ?? "", delegate: self)
                 return cell
             }
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: AddDetailTableViewCell.id, for: indexPath) as! AddDetailTableViewCell
-            for i in 0..<AddReminderCellList.allCases.count {
-                if indexPath.section == i+1 {
-                    cell.configureCell(index: i, data: realmData)
+            
+            for list in AddReminderCellList.allCases {
+                if indexPath.section == list.rawValue {
+                    cell.configureCell(cellList: list, data: realmData, image: pickedImage)
                 }
             }
-        
+            if indexPath.section == 4 {
+                cell.image.isHidden = false
+            } else {
+                cell.image.isHidden = true
+            }
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 50
-        } else {
-            return 100
+        
+        for list in AddReminderCellList.allCases {
+            if indexPath.section == list.rawValue {
+                return list.setCellSize()
+            }
         }
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -138,6 +153,7 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
             vc.date = { value in
                 self.realmData.deadline = value
             }
+            
             navigationController?.pushViewController(vc, animated: true)
             
         } else if indexPath.section == 2 {
@@ -150,7 +166,20 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
             }
             navigationController?.pushViewController(vc, animated: true)
         } else if indexPath.section == 4 {
-//            navigationController?.pushViewController(ImageViewController(), animated: true)
+            let cameraButton = UIAlertAction(title: "새로운 사진 찍기", style: .default) { _ in
+                
+            }
+            let albumButton = UIAlertAction(title: "앨범에서 가져오기", style: .default) { _ in
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.delegate = self
+                self.present(imagePicker, animated: true)
+            }
+            
+            let webImageButton = UIAlertAction(title: "웹에서 이미지 검색하기", style: .default) { UIAlertAction in
+                
+            }
+            showAlert(style: .actionSheet, title: nil, message: nil, buttons: [cameraButton, albumButton, webImageButton])
         }
     }
 }
@@ -169,5 +198,13 @@ extension AddReminderViewController: UITextFieldDelegate {
 extension AddReminderViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         realmData.memo = textView.text
+    }
+}
+
+extension AddReminderViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image: UIImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        pickedImage = image
+        dismiss(animated: true)
     }
 }
