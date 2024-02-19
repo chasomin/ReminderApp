@@ -19,7 +19,7 @@ final class AddReminderTitleTableViewCell: BaseTableViewCell {
     override func configureLayout() {
         textField.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(5)
-            
+            make.height.equalTo(30)
         }
     }
     
@@ -28,5 +28,10 @@ final class AddReminderTitleTableViewCell: BaseTableViewCell {
         textField.textColor = .white
         
         backgroundColor = .systemGray5
+    }
+    
+    func configureCell(text: String, delegate: UITextFieldDelegate) {
+        textField.delegate = delegate
+        textField.text = text
     }
 }
