@@ -15,6 +15,8 @@ final class ReminderListTableViewCell: BaseTableViewCell {
     let tagLabel = UILabel()
     let deadline = UILabel()
     let priority = UILabel()
+    let image = UIImageView()
+    
     private let repository = ReminderModelRepository()
     
     override func configureHierarchy() {
@@ -24,6 +26,7 @@ final class ReminderListTableViewCell: BaseTableViewCell {
         contentView.addSubview(tagLabel)
         contentView.addSubview(deadline)
         contentView.addSubview(priority)
+        contentView.addSubview(image)
     }
 
     override func configureLayout() {
@@ -50,14 +53,21 @@ final class ReminderListTableViewCell: BaseTableViewCell {
         tagLabel.snp.makeConstraints { make in
             make.verticalEdges.equalTo(deadline)
             make.leading.equalTo(deadline.snp.trailing).offset(5)
-            make.trailing.equalToSuperview().inset(10)
         }
         
+        image.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(10)
+            make.verticalEdges.equalToSuperview()
+            make.width.height.equalTo(100)
+            make.leading.equalTo(tagLabel.snp.trailing).offset(5)
+        }
         
         priority.snp.makeConstraints { make in
             make.leading.equalTo(isDoneButton.snp.trailing).offset(10)
             make.verticalEdges.equalTo(title)
         }
+        
+        
     }
     
     override func configureView() {
@@ -84,6 +94,7 @@ final class ReminderListTableViewCell: BaseTableViewCell {
         priority.textColor = .systemRed
         priority.textAlignment = .right
         priority.setContentHuggingPriority(.required, for: .horizontal)
+
     }
     
     func configureCell(data: ReminderModel) {
@@ -99,7 +110,7 @@ final class ReminderListTableViewCell: BaseTableViewCell {
         }
         title.text = data.title
         memo.text = data.memo
-        deadline.text = data.deadline
+        deadline.text = data.deadline.dateToString()
         if data.tag != "" {
             tagLabel.text = "#\(data.tag ?? "")"
         } else {
