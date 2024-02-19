@@ -17,16 +17,26 @@ final class ReminderListTableViewCell: BaseTableViewCell {
     let priority = UILabel()
     let image = UIImageView()
     
+    let titlePriorityHStack = UIStackView()
+    let dateTagHStack = UIStackView()
+    let vstackView = UIStackView()
     private let repository = ReminderModelRepository()
     
     override func configureHierarchy() {
         contentView.addSubview(isDoneButton)
-        contentView.addSubview(title)
-        contentView.addSubview(memo)
-        contentView.addSubview(tagLabel)
-        contentView.addSubview(deadline)
-        contentView.addSubview(priority)
+        contentView.addSubview(vstackView)
         contentView.addSubview(image)
+        
+        titlePriorityHStack.addArrangedSubview(priority)
+        titlePriorityHStack.addArrangedSubview(title)
+
+        dateTagHStack.addArrangedSubview(deadline)
+        dateTagHStack.addArrangedSubview(tagLabel)
+        
+        vstackView.addArrangedSubview(titlePriorityHStack)
+        vstackView.addArrangedSubview(memo)
+        vstackView.addArrangedSubview(dateTagHStack)
+        
     }
 
     override func configureLayout() {
@@ -34,53 +44,58 @@ final class ReminderListTableViewCell: BaseTableViewCell {
             make.top.leading.equalToSuperview().inset(10)
             make.width.equalTo(30)
         }
-        title.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview().inset(10)
-            make.leading.equalTo(priority.snp.trailing).offset(5)
-            make.height.equalTo(20)
-        }
-        memo.snp.makeConstraints { make in
-            make.top.equalTo(title.snp.bottom).offset(5)
-            make.horizontalEdges.equalTo(title)
-        }
-        deadline.snp.makeConstraints { make in
-            make.top.equalTo(memo.snp.bottom).offset(5)
-            make.leading.equalTo(title)
-            make.bottom.equalToSuperview().inset(10)
-            make.width.equalTo(90)
+        
+        vstackView.snp.makeConstraints { make in
+            make.leading.equalTo(isDoneButton.snp.trailing).offset(10)
+            make.verticalEdges.equalToSuperview().inset(10)
         }
         
-        tagLabel.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(deadline)
-            make.leading.equalTo(deadline.snp.trailing).offset(5)
+        title.snp.makeConstraints { make in
+            make.height.equalTo(20)
+        }
+
+        memo.snp.makeConstraints { make in
+            make.width.equalTo(200)
+        }
+        
+        deadline.snp.makeConstraints { make in
+            make.width.equalTo(90)
+            make.height.equalTo(20)
         }
         
         image.snp.makeConstraints { make in
+            make.height.equalTo(safeAreaLayoutGuide)
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(vstackView.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(10)
-            make.verticalEdges.equalToSuperview()
-            make.width.height.equalTo(100)
-            make.leading.equalTo(tagLabel.snp.trailing).offset(5)
         }
-        
-        priority.snp.makeConstraints { make in
-            make.leading.equalTo(isDoneButton.snp.trailing).offset(10)
-            make.verticalEdges.equalTo(title)
-        }
-        
-        
     }
     
     override func configureView() {
+        titlePriorityHStack.axis = .horizontal
+        titlePriorityHStack.spacing = 5
+        titlePriorityHStack.distribution = .fill
+        
+        dateTagHStack.axis = .horizontal
+        dateTagHStack.spacing = 5
+        dateTagHStack.distribution = .fill
+        
+        vstackView.axis = .vertical
+        vstackView.spacing = 5
+        vstackView.distribution = .equalSpacing
+        
         isDoneButton.tintColor = .systemGray4
         
         backgroundColor = .black
         title.font = .boldSystemFont(ofSize: 17)
         title.textColor = .white
         title.textAlignment = .left
+        title.numberOfLines = 1
         
         memo.font = .systemFont(ofSize: 13)
         memo.textColor = .darkGray
         memo.textAlignment = .left
+        memo.numberOfLines = 0
 
         deadline.font = .systemFont(ofSize: 13)
         deadline.textColor = .darkGray
@@ -94,7 +109,8 @@ final class ReminderListTableViewCell: BaseTableViewCell {
         priority.textColor = .systemRed
         priority.textAlignment = .right
         priority.setContentHuggingPriority(.required, for: .horizontal)
-
+        
+        image.contentMode = .scaleToFill
     }
     
     func configureCell(data: ReminderModel) {
@@ -109,7 +125,12 @@ final class ReminderListTableViewCell: BaseTableViewCell {
             isDoneButton.setImage(unfinishedImage, for: .normal)
         }
         title.text = data.title
-        memo.text = data.memo
+        if data.memo == "" {
+            memo.isHidden = true
+        } else {
+            memo.isHidden = false
+            memo.text = data.memo
+        }
         deadline.text = data.deadline.dateToString()
         if data.tag != "" {
             tagLabel.text = "#\(data.tag ?? "")"
@@ -120,6 +141,12 @@ final class ReminderListTableViewCell: BaseTableViewCell {
         for _ in 0..<data.priority {
             priorityText += "!"
         }
-        priority.text = priorityText
+        
+        if priorityText.isEmpty {
+            priority.isHidden = true
+        } else {
+            priority.isHidden = false
+            priority.text = priorityText
+        }
     }
 }

@@ -78,7 +78,12 @@ extension ReminderListViewController: UITableViewDelegate, UITableViewDataSource
         cell.configureCell(data: row)
         cell.isDoneButton.tag = indexPath.row
         cell.isDoneButton.addTarget(self, action: #selector(isDoneButtonTapped), for: .touchUpInside)
-        cell.image.image = loadImageToDocument(filename: "\(row.id)")
+        if loadImageToDocument(filename: "\(row.id)") == nil {
+            cell.image.isHidden = true
+        } else {
+            cell.image.isHidden = false
+            cell.image.image = loadImageToDocument(filename: "\(row.id)")
+        }
         return cell
     }
     
