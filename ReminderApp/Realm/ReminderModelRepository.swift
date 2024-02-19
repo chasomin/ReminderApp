@@ -45,40 +45,20 @@ final class ReminderModelRepository {
     func read(filter: ReminderList) -> Results<ReminderModel> {
         switch filter {
         case .today:
-            realm.objects(ReminderModel.self).where {
-                let format = DateFormatter()
-                format.dateFormat = "yy년 MM월 dd일"
-                format.timeZone = TimeZone(identifier: "Asia/Seoul")
-                let today = format.string(from: Date())
-                
-                return $0.deadline.contains(today)
-            }
+            let start: Date = Calendar.current.startOfDay(for: Date())
+            let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date()
+            let predicate = NSPredicate(format: "deadline >= %@ && deadline < %@", start as NSDate, end as NSDate)
+            return realm.objects(ReminderModel.self).filter(predicate)
         case .schedule:
-//            realm.objects(ReminderModel.self).where {
-//                let format = DateFormatter()
-//                format.dateFormat = "yy년 MM월 dd일"
-//                format.timeZone = TimeZone(identifier: "Asia/Seoul")
-//                let today = format.string(from: Date())
-                
-//                let format = DateFormatter()
-//                format.dateFormat = "yy년 MM월 dd일"
-//                let deadline = format.date(from: "\($0.deadline)")
-                
-//                let today = Date()
-//                let koreaDate = today.addingTimeInterval(TimeInterval(9*60*60))
-                    
-//                let result: Query<Bool> = deadline?.compare(koreaDate) == .orderedDescending
-//                let result = $0.deadline > today
-                
-                realm.objects(ReminderModel.self) // TODO: ///
-                
-//            }
+            let start: Date = Date()
+            let predicate = NSPredicate(format: "deadline > %@", start as NSDate)
+            return realm.objects(ReminderModel.self).filter(predicate)
         case .all:
-            realm.objects(ReminderModel.self)
+            return realm.objects(ReminderModel.self)
         case .flag:
-            realm.objects(ReminderModel.self)// TODO: ///
+            return realm.objects(ReminderModel.self)// TODO: ///
         case .done:
-            realm.objects(ReminderModel.self).where {
+            return realm.objects(ReminderModel.self).where {
                 $0.isDone == true
             }
         }
@@ -91,7 +71,7 @@ final class ReminderModelRepository {
     }
     
     // MARK: Update
-    func updateItem(id: ObjectId, title: String, memo: String?, deadline: String, tag: String?, priority: Int) {
+    func updateItem(id: ObjectId, title: String, memo: String?, deadline: Date, tag: String?, priority: Int) {
         do {
             try realm.write {
                 realm.create(ReminderModel.self,
