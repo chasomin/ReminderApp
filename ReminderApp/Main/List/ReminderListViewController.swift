@@ -13,6 +13,7 @@ final class ReminderListViewController: UIViewController, ReloadDelegate {
     let mainView = ReminderListView()
     var data: Results<ReminderModel>!
     private let repository = ReminderModelRepository()
+    var selectedDate: Date?
 
     override func loadView() {
         view = mainView
@@ -31,7 +32,7 @@ final class ReminderListViewController: UIViewController, ReloadDelegate {
 
     func setRightPullDownButton() {
         let barButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis"),primaryAction: nil)
-        var calendarButton = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarButtonTapped))
+        let calendarButton = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarButtonTapped))
         navigationItem.rightBarButtonItems = [barButton, calendarButton]
         
         let deadline = UIAction(title: "마감일 순") { _ in
@@ -72,6 +73,12 @@ final class ReminderListViewController: UIViewController, ReloadDelegate {
             self.data = value
             self.mainView.tableView.reloadData()
         }
+    
+        vc.selectedDate = { value in
+            self.selectedDate = value
+        }
+        vc.selected = selectedDate
+        
         present(vc, animated: true)
     }
 

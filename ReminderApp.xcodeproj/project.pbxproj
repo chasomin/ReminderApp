@@ -109,6 +109,14 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		793843322B83A0D4000BDDF9 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				793843302B837C5F000BDDF9 /* CalendarViewController.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		7984B54B2B7C83920079AB07 = {
 			isa = PBXGroup;
 			children = (
@@ -225,7 +233,7 @@
 				79DF41992B7DF2EA00D49E35 /* ReminderListViewController.swift */,
 				79DF419C2B7DF30700D49E35 /* ReminderListView.swift */,
 				79DF419E2B7DF39500D49E35 /* ReminderListTableViewCell.swift */,
-				793843302B837C5F000BDDF9 /* CalendarViewController.swift */,
+				793843322B83A0D4000BDDF9 /* Calendar */,
 			);
 			path = List;
 			sourceTree = "<group>";

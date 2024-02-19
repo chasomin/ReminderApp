@@ -15,7 +15,9 @@ class CalendarViewController: BaseViewController {
     let realm = try! Realm()
     let calendar = FSCalendar()
     var calendarData: ((Results<ReminderModel>) -> Void)?
-    var seleteDate: Date?
+    
+    var selectedDate: ((Date) -> Void)?
+    var selected: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,9 @@ class CalendarViewController: BaseViewController {
         }
         calendar.delegate = self
         calendar.dataSource = self
+        
+        calendar.currentPage = selected ?? Date()
+        calendar.select(selected)
     }
     
     override func configureHierarchy() {
@@ -63,8 +68,14 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
         
         let predicate = NSPredicate(format: "deadline >= %@ && deadline < %@", start as NSDate, end as NSDate)
         
-        seleteDate = calendar.selectedDate
+        if let selectedDate = calendar.selectedDate {
+            self.selectedDate?(selectedDate)
+            selected = selectedDate
+            print(selectedDate)
+        }
         calendarData?(realm.objects(ReminderModel.self).filter(predicate))
         dismiss(animated: true)
     }
+    
+
 }
