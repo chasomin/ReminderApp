@@ -82,8 +82,9 @@ final class AddReminderViewController: UIViewController {
         }
     }
     
-    //TODO: 도큐먼트 에서 이미지 삭제하기
+    //TODO: 삭제버튼 눌렀을 때 alert
     @objc func deleteButtonTapped() {
+        deleteImageToDocument(filename: "\(id)")
         repository.deleteItem(deleteData)
         dismiss(animated: true)
         delegate?.reload()
