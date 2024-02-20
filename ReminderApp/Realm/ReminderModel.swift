@@ -8,6 +8,27 @@
 import Foundation
 import RealmSwift
 
+
+final class ReminderBox: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var title: String
+    @Persisted var regDate: Date
+    @Persisted var color: Int
+    @Persisted var icon: Int
+    
+    @Persisted var reminder: List<ReminderModel>
+    
+    convenience init(title: String, regDate: Date, color: Int, icon: Int) {
+        self.init()
+        
+        self.title = title
+        self.regDate = regDate
+        self.color = color
+        self.icon = icon
+    }
+}
+
+
 final class ReminderModel: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var title: String
