@@ -118,12 +118,8 @@ extension ReminderListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let vc = AddReminderViewController()
-        vc.navigationRigthButtonTitle = "수정"
-        vc.barButtonIsEnabled = true
+        let vc = AddReminderViewController(navigationTitle: "할 일 수정", navigationRigthButtonTitle: "수정", barButtonIsEnabled: true, id: data[indexPath.row].id, deleteButtonIsHidden: false)
         vc.delegate = self
-        vc.deleteButtonIsHidden = false
-        vc.id = data[indexPath.row].id
         let row = data[indexPath.row]
         vc.realmData = ReminderModel(title: row.title, memo: row.memo, deadline: row.deadline, tag: row.tag, priority: row.priority)
         vc.pickedImage = loadImageToDocument(filename: "\(row.id)") ?? UIImage()

@@ -12,19 +12,36 @@ final class AddReminderViewController: UIViewController {
     
     private let mainView = AddReminderView()
     var realmData: ReminderModel = ReminderModel(title: "", memo: "", deadline: Date(), tag: "", priority: 0)
-    var deleteData: ReminderModel = ReminderModel(title: "", memo: "", deadline: Date(), tag: "", priority: 0)
+    var deleteData: ReminderModel!
     var delegate: ReloadDelegate?
-    private var barButton = UIBarButtonItem()
-    var navigationRigthButtonTitle = "추가"
-    var barButtonIsEnabled = false
-    var id: ObjectId = ObjectId()
-    var deleteButtonIsHidden = true
+    
+    var navigationTitle: String
+    var navigationRigthButtonTitle: String
+    var barButtonIsEnabled: Bool
+    var id: ObjectId
+    var deleteButtonIsHidden: Bool
+    
     private let repository = ReminderModelRepository()
     var pickedImage = UIImage() {
         didSet {
             mainView.tableView.reloadData()
         }
     }
+
+    init(navigationTitle: String, navigationRigthButtonTitle: String, barButtonIsEnabled: Bool, id: ObjectId?, deleteButtonIsHidden: Bool) {
+        self.navigationTitle = navigationTitle
+        self.navigationRigthButtonTitle = navigationRigthButtonTitle
+        self.barButtonIsEnabled = barButtonIsEnabled
+        self.id = id ?? ObjectId()
+        self.deleteButtonIsHidden = deleteButtonIsHidden
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func loadView() {
         view = mainView
@@ -33,11 +50,10 @@ final class AddReminderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setNavigationTitle(title: "새로운 할 일", isLarge: false)
-        setNavigationRightBarButton(button: &barButton,
-                                    title: navigationRigthButtonTitle, image: nil,
+        setNavigationTitle(title: navigationTitle, isLarge: false)
+        setNavigationRightBarButton(title: navigationRigthButtonTitle, image: nil,
                                     action: navigationRigthButtonTitle == "추가" ? #selector(addButtonTapped) : #selector(updateButtonTapped))
-        barButton.isEnabled = barButtonIsEnabled
+        navigationItem.rightBarButtonItem?.isEnabled = barButtonIsEnabled
         
         setNavigationLeftBarButton(title: "취소", image: nil, action: #selector(cancelButtonTapped))
         mainView.deleteButton.isHidden = deleteButtonIsHidden
@@ -191,9 +207,9 @@ extension AddReminderViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField.text != "" {
             realmData.title = textField.text!
-            barButton.isEnabled = true
+            navigationItem.rightBarButtonItem?.isEnabled = true
         } else {
-            barButton.isEnabled = false
+            navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
 }

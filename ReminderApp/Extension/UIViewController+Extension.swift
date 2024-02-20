@@ -29,9 +29,14 @@ extension UIViewController {
         tableView.register(cell, forCellReuseIdentifier: id)
     }
     
-    func setNavigationRightBarButton(button: inout UIBarButtonItem ,title: String?, image: UIImage?, action: Selector?) {
-        button = UIBarButtonItem(title: title, style: .plain, target: self, action: action)
-        navigationItem.rightBarButtonItem = button
+    func setNavigationRightBarButton(title: String?, image: UIImage?, action: Selector?) {
+        if title == nil {
+            let button = UIBarButtonItem(image: image, style: .plain, target: self, action: action)
+            navigationItem.rightBarButtonItem = button
+        } else {
+            let button = UIBarButtonItem(title: title, style: .plain, target: self, action: action)
+            navigationItem.rightBarButtonItem = button
+        }
     }
     
     func setNavigationLeftBarButton(title: String?, image: UIImage?, action: Selector?) {

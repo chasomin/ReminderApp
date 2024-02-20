@@ -46,7 +46,7 @@ final class ReminderCollectionViewCell: BaseCollectionViewCell {
         reminderCount.textColor = .white
         reminderCount.textAlignment = .right
 
-        backgroundColor = .darkGray
+        backgroundColor = .systemGray6
         layer.cornerRadius = 15
     }
 }
