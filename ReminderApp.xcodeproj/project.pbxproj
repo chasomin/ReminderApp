@@ -22,6 +22,8 @@
 		793843432B849B38000BDDF9 /* AddBoxIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843422B849B38000BDDF9 /* AddBoxIconView.swift */; };
 		793843452B84A8AB000BDDF9 /* BoxColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843442B84A8AB000BDDF9 /* BoxColor.swift */; };
 		793843472B84AB53000BDDF9 /* BoxIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843462B84AB53000BDDF9 /* BoxIcon.swift */; };
+		793843492B84C434000BDDF9 /* BoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843482B84C434000BDDF9 /* BoxViewController.swift */; };
+		7938434B2B84C7D0000BDDF9 /* BoxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7938434A2B84C7D0000BDDF9 /* BoxTableViewCell.swift */; };
 		7984B5582B7C83920079AB07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5572B7C83920079AB07 /* AppDelegate.swift */; };
 		7984B55A2B7C83920079AB07 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5592B7C83920079AB07 /* SceneDelegate.swift */; };
 		7984B55F2B7C83920079AB07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7984B55D2B7C83920079AB07 /* Main.storyboard */; };
@@ -71,6 +73,8 @@
 		793843422B849B38000BDDF9 /* AddBoxIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBoxIconView.swift; sourceTree = "<group>"; };
 		793843442B84A8AB000BDDF9 /* BoxColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxColor.swift; sourceTree = "<group>"; };
 		793843462B84AB53000BDDF9 /* BoxIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxIcon.swift; sourceTree = "<group>"; };
+		793843482B84C434000BDDF9 /* BoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewController.swift; sourceTree = "<group>"; };
+		7938434A2B84C7D0000BDDF9 /* BoxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxTableViewCell.swift; sourceTree = "<group>"; };
 		7984B5542B7C83920079AB07 /* ReminderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReminderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7984B5572B7C83920079AB07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7984B5592B7C83920079AB07 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -256,8 +260,10 @@
 			isa = PBXGroup;
 			children = (
 				7984B5982B7CD26D0079AB07 /* DeadlineViewController.swift */,
-				7984B59A2B7CD27B0079AB07 /* TagViewController.swift */,
 				7984B5962B7CD2540079AB07 /* PriorityViewController.swift */,
+				7984B59A2B7CD27B0079AB07 /* TagViewController.swift */,
+				793843482B84C434000BDDF9 /* BoxViewController.swift */,
+				7938434A2B84C7D0000BDDF9 /* BoxTableViewCell.swift */,
 			);
 			path = AddDetailView;
 			sourceTree = "<group>";
@@ -369,6 +375,7 @@
 				7938433B2B849409000BDDF9 /* AddBoxView.swift in Sources */,
 				7984B57B2B7C9EC80079AB07 /* ReminderCollectionViewCell.swift in Sources */,
 				7984B58C2B7CB0900079AB07 /* AddReminderView.swift in Sources */,
+				7938434B2B84C7D0000BDDF9 /* BoxTableViewCell.swift in Sources */,
 				79DF419A2B7DF2EA00D49E35 /* ReminderListViewController.swift in Sources */,
 				7984B5882B7CAD390079AB07 /* UIViewController+Extension.swift in Sources */,
 				7984B57D2B7C9EEE0079AB07 /* BaseCollectionViewCell.swift in Sources */,
@@ -389,6 +396,7 @@
 				793843452B84A8AB000BDDF9 /* BoxColor.swift in Sources */,
 				793843362B848ECD000BDDF9 /* HeaderTitleView.swift in Sources */,
 				793843392B849371000BDDF9 /* AddBoxViewController.swift in Sources */,
+				793843492B84C434000BDDF9 /* BoxViewController.swift in Sources */,
 				7984B55A2B7C83920079AB07 /* SceneDelegate.swift in Sources */,
 				7984B58E2B7CC57A0079AB07 /* AddReminderTitleTableViewCell.swift in Sources */,
 				7984B59F2B7CD3FB0079AB07 /* BaseViewController.swift in Sources */,

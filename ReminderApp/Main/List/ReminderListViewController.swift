@@ -125,6 +125,7 @@ extension ReminderListViewController: UITableViewDelegate, UITableViewDataSource
         vc.pickedImage = loadImageToDocument(filename: "\(row.id)") ?? UIImage()
         /// 수정할 때는 row 로 data 그대로 넘기면, 읽으면서 수정하려고 해서 오류남 -> 수정할 때 데이터 따로 삭제할 때 데이터 따로 넘기는 방법 밖에 없나?? // =>  DTO
         vc.deleteData = row
+        vc.boxData = data[indexPath.row].box.first ?? ReminderBox(title: "", regDate: Date(), color: 0, icon: 0)
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
     }

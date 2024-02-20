@@ -101,4 +101,15 @@ extension ReminderViewController: UITableViewDelegate, UITableViewDataSource {
         return view
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ReminderListViewController()
+        vc.data = realm.objects(ReminderModel.self).where {
+            $0.box == boxData[indexPath.row]
+        }
+            vc.mainView.searchBar.isHidden = true
+        
+        vc.navigationItem.title = boxData[indexPath.row].title
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }

@@ -12,6 +12,7 @@ enum AddReminderCellList: Int, CaseIterable {
     case tag
     case priority
     case image
+    case box
     
     var title: String {
         switch self {
@@ -23,6 +24,8 @@ enum AddReminderCellList: Int, CaseIterable {
             "우선 순위"
         case .image:
             "이미지 추가"
+        case .box:
+            "목록"
         }
     }
     
@@ -41,7 +44,7 @@ enum AddReminderCellList: Int, CaseIterable {
         }
     }
     
-    func setSubTitle(data: ReminderModel) -> String{
+    func setSubTitle(data: ReminderModel, boxData: ReminderBox) -> String{
         switch self {
         case .deadline:
             data.deadline.dateToString()
@@ -51,6 +54,8 @@ enum AddReminderCellList: Int, CaseIterable {
             setPriority(data: data)
         case .image:
             ""
+        case .box:
+            boxData.title
         }
     }
     

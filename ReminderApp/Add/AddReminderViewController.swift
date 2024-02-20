@@ -12,6 +12,7 @@ final class AddReminderViewController: UIViewController {
     
     private let mainView = AddReminderView()
     var realmData: ReminderModel = ReminderModel(title: "", memo: "", deadline: Date(), tag: "", priority: 0)
+    lazy var boxData: ReminderBox = realm.objects(ReminderBox.self).first ?? ReminderBox(title: "", regDate: Date(), color: 0, icon: 0)
     var deleteData: ReminderModel!
     var delegate: ReloadDelegate?
     
@@ -21,6 +22,7 @@ final class AddReminderViewController: UIViewController {
     var id: ObjectId
     var deleteButtonIsHidden: Bool
     
+    let realm = try! Realm()
     private let repository = ReminderModelRepository()
     var pickedImage = UIImage() {
         didSet {
@@ -75,7 +77,14 @@ final class AddReminderViewController: UIViewController {
     }
     
     @objc func addButtonTapped() {
-        repository.createItem(realmData)
+//        repository.createItem(realmData)
+        do {
+            try realm.write {
+                boxData.reminder.append(realmData)
+            }
+        } catch {
+            print(error)
+        }
         saveImageToDocument(image: pickedImage, filename: "\(realmData.id)")
         delegate?.reload()
         dismiss(animated: true)
@@ -144,7 +153,7 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
             
             for list in AddReminderCellList.allCases {
                 if indexPath.section == list.rawValue {
-                    cell.configureCell(cellList: list, data: realmData, image: pickedImage)
+                    cell.configureCell(cellList: list, data: realmData, boxData: boxData, image: pickedImage)
                 }
             }
             if indexPath.section == 4 {
@@ -199,6 +208,13 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
                 
             }
             showAlert(style: .actionSheet, title: nil, message: nil, buttons: [cameraButton, albumButton, webImageButton])
+        } else if indexPath.section == 5 {
+            let vc = BoxViewController()
+            vc.seletedData = { data in
+                self.boxData = data
+            }
+            vc.boxData = boxData
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

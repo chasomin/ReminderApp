@@ -37,7 +37,8 @@ final class ReminderModel: Object {
     @Persisted var tag: String?
     @Persisted var priority: Int
     @Persisted var isDone: Bool
-//    @Persisted var image
+
+    @Persisted(originProperty: "reminder") var box: LinkingObjects<ReminderBox>
     
     
     convenience init(title: String, memo: String? = nil, deadline: Date, tag: String?, priority: Int) {

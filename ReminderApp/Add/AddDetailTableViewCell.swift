@@ -56,9 +56,9 @@ final class AddDetailTableViewCell: BaseTableViewCell {
         image.isHidden = true
     }
     
-    func configureCell(cellList: AddReminderCellList, data: ReminderModel, image: UIImage) {
+    func configureCell(cellList: AddReminderCellList, data: ReminderModel, boxData: ReminderBox, image: UIImage) {
         title.text = cellList.title
-        subTitle.text = cellList.setSubTitle(data: data)
+        subTitle.text = cellList.setSubTitle(data: data, boxData: boxData)
         self.image.image = image
     }
     
