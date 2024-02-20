@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ReminderTableViewCell: BaseTableViewCell {
+final class ReminderTableViewCell: BaseTableViewCell {
     let title = UILabel()
     let count = UILabel()
     

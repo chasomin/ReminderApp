@@ -15,6 +15,13 @@
 		793843312B837C5F000BDDF9 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843302B837C5F000BDDF9 /* CalendarViewController.swift */; };
 		793843342B848A31000BDDF9 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843332B848A31000BDDF9 /* ReminderTableViewCell.swift */; };
 		793843362B848ECD000BDDF9 /* HeaderTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843352B848ECD000BDDF9 /* HeaderTitleView.swift */; };
+		793843392B849371000BDDF9 /* AddBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843382B849371000BDDF9 /* AddBoxViewController.swift */; };
+		7938433B2B849409000BDDF9 /* AddBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7938433A2B849409000BDDF9 /* AddBoxView.swift */; };
+		7938433F2B84985E000BDDF9 /* AddBoxTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7938433E2B84985E000BDDF9 /* AddBoxTitleView.swift */; };
+		793843412B8498D5000BDDF9 /* AddBoxColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843402B8498D5000BDDF9 /* AddBoxColorView.swift */; };
+		793843432B849B38000BDDF9 /* AddBoxIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843422B849B38000BDDF9 /* AddBoxIconView.swift */; };
+		793843452B84A8AB000BDDF9 /* BoxColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843442B84A8AB000BDDF9 /* BoxColor.swift */; };
+		793843472B84AB53000BDDF9 /* BoxIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843462B84AB53000BDDF9 /* BoxIcon.swift */; };
 		7984B5582B7C83920079AB07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5572B7C83920079AB07 /* AppDelegate.swift */; };
 		7984B55A2B7C83920079AB07 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5592B7C83920079AB07 /* SceneDelegate.swift */; };
 		7984B55F2B7C83920079AB07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7984B55D2B7C83920079AB07 /* Main.storyboard */; };
@@ -57,6 +64,13 @@
 		793843302B837C5F000BDDF9 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		793843332B848A31000BDDF9 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		793843352B848ECD000BDDF9 /* HeaderTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleView.swift; sourceTree = "<group>"; };
+		793843382B849371000BDDF9 /* AddBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBoxViewController.swift; sourceTree = "<group>"; };
+		7938433A2B849409000BDDF9 /* AddBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBoxView.swift; sourceTree = "<group>"; };
+		7938433E2B84985E000BDDF9 /* AddBoxTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBoxTitleView.swift; sourceTree = "<group>"; };
+		793843402B8498D5000BDDF9 /* AddBoxColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBoxColorView.swift; sourceTree = "<group>"; };
+		793843422B849B38000BDDF9 /* AddBoxIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBoxIconView.swift; sourceTree = "<group>"; };
+		793843442B84A8AB000BDDF9 /* BoxColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxColor.swift; sourceTree = "<group>"; };
+		793843462B84AB53000BDDF9 /* BoxIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxIcon.swift; sourceTree = "<group>"; };
 		7984B5542B7C83920079AB07 /* ReminderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReminderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7984B5572B7C83920079AB07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7984B5592B7C83920079AB07 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +133,18 @@
 				793843302B837C5F000BDDF9 /* CalendarViewController.swift */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		793843372B849336000BDDF9 /* ReminderBox */ = {
+			isa = PBXGroup;
+			children = (
+				793843382B849371000BDDF9 /* AddBoxViewController.swift */,
+				7938433A2B849409000BDDF9 /* AddBoxView.swift */,
+				7938433E2B84985E000BDDF9 /* AddBoxTitleView.swift */,
+				793843402B8498D5000BDDF9 /* AddBoxColorView.swift */,
+				793843422B849B38000BDDF9 /* AddBoxIconView.swift */,
+			);
+			path = ReminderBox;
 			sourceTree = "<group>";
 		};
 		7984B54B2B7C83920079AB07 = {
@@ -187,6 +213,7 @@
 				7984B5752B7C90020079AB07 /* ReminderView.swift */,
 				7984B57A2B7C9EC70079AB07 /* ReminderCollectionViewCell.swift */,
 				793843332B848A31000BDDF9 /* ReminderTableViewCell.swift */,
+				793843372B849336000BDDF9 /* ReminderBox */,
 				79DF419B2B7DF2EF00D49E35 /* List */,
 			);
 			path = Main;
@@ -210,6 +237,8 @@
 			children = (
 				7984B57F2B7CA1D30079AB07 /* ReminderList.swift */,
 				7984B5932B7CCF200079AB07 /* AddReminderCellList.swift */,
+				793843442B84A8AB000BDDF9 /* BoxColor.swift */,
+				793843462B84AB53000BDDF9 /* BoxIcon.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -335,24 +364,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				793843412B8498D5000BDDF9 /* AddBoxColorView.swift in Sources */,
 				79DF419F2B7DF39500D49E35 /* ReminderListTableViewCell.swift in Sources */,
+				7938433B2B849409000BDDF9 /* AddBoxView.swift in Sources */,
 				7984B57B2B7C9EC80079AB07 /* ReminderCollectionViewCell.swift in Sources */,
 				7984B58C2B7CB0900079AB07 /* AddReminderView.swift in Sources */,
 				79DF419A2B7DF2EA00D49E35 /* ReminderListViewController.swift in Sources */,
 				7984B5882B7CAD390079AB07 /* UIViewController+Extension.swift in Sources */,
 				7984B57D2B7C9EEE0079AB07 /* BaseCollectionViewCell.swift in Sources */,
+				7938433F2B84985E000BDDF9 /* AddBoxTitleView.swift in Sources */,
 				7984B5762B7C90020079AB07 /* ReminderView.swift in Sources */,
 				79DF419D2B7DF30700D49E35 /* ReminderListView.swift in Sources */,
 				7938432A2B831D7C000BDDF9 /* DateFormatter+Extension.swift in Sources */,
 				7984B58A2B7CB0020079AB07 /* AddReminderViewController.swift in Sources */,
+				793843432B849B38000BDDF9 /* AddBoxIconView.swift in Sources */,
 				7984B5942B7CCF200079AB07 /* AddReminderCellList.swift in Sources */,
 				7984B5922B7CC9840079AB07 /* AddDetailTableViewCell.swift in Sources */,
 				793843312B837C5F000BDDF9 /* CalendarViewController.swift in Sources */,
 				7938432C2B832B73000BDDF9 /* FileManager+Extension.swift in Sources */,
+				793843472B84AB53000BDDF9 /* BoxIcon.swift in Sources */,
 				7984B5712B7C8C860079AB07 /* Identifier.swift in Sources */,
 				793843342B848A31000BDDF9 /* ReminderTableViewCell.swift in Sources */,
 				7984B5582B7C83920079AB07 /* AppDelegate.swift in Sources */,
+				793843452B84A8AB000BDDF9 /* BoxColor.swift in Sources */,
 				793843362B848ECD000BDDF9 /* HeaderTitleView.swift in Sources */,
+				793843392B849371000BDDF9 /* AddBoxViewController.swift in Sources */,
 				7984B55A2B7C83920079AB07 /* SceneDelegate.swift in Sources */,
 				7984B58E2B7CC57A0079AB07 /* AddReminderTitleTableViewCell.swift in Sources */,
 				7984B59F2B7CD3FB0079AB07 /* BaseViewController.swift in Sources */,

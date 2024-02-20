@@ -16,6 +16,7 @@ final class ReminderView: BaseView {
     let toolBar = UIToolbar()
     
     var toolbarAction: (() -> Void)?
+    var addBoxButtonTapped: ((UIViewController) -> Void)?
     
     override func configureHierarchy() {
         addSubview(collectionView)
@@ -66,6 +67,8 @@ final class ReminderView: BaseView {
     
     @objc func addListButtonTapped() {
         print(#function)
+        let vc = UINavigationController(rootViewController: AddBoxViewController())
+        addBoxButtonTapped?(vc)
     }
 }
 

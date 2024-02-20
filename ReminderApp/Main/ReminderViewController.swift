@@ -35,6 +35,10 @@ final class ReminderViewController: UIViewController, ReloadDelegate {
             self.present(nav, animated: true)
         }
         data = repository.read()
+        
+        mainView.addBoxButtonTapped = { vc in
+            self.present(vc, animated: true)
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
