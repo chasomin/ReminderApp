@@ -56,5 +56,9 @@ final class AddBoxColorView: BaseView {
     
     @objc func colorButtonTapped(_ sender: UIButton) {
         selectedColorButton?(sender.tag)
+        NotificationCenter.default.post(name: NSNotification.Name("Color"), object: nil, userInfo: ["color":sender.tag])
+
+
+        print(#function)
     }
 }

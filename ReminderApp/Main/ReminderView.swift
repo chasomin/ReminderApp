@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ReminderView: BaseView {
+final class ReminderView: BaseView, UINavigationControllerDelegate {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -16,7 +16,7 @@ final class ReminderView: BaseView {
     let toolBar = UIToolbar()
     
     var toolbarAction: (() -> Void)?
-    var addBoxButtonTapped: ((UIViewController) -> Void)?
+    var addBoxButtonTapped: ((UINavigationController, AddBoxViewController) -> Void)?
     
     override func configureHierarchy() {
         addSubview(collectionView)
@@ -67,8 +67,9 @@ final class ReminderView: BaseView {
     
     @objc func addListButtonTapped() {
         print(#function)
-        let vc = UINavigationController(rootViewController: AddBoxViewController())
-        addBoxButtonTapped?(vc)
+        let vc = AddBoxViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        addBoxButtonTapped?(nav, vc)
     }
 }
 

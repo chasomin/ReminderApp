@@ -8,11 +8,13 @@
 import UIKit
 import RealmSwift
 
-final class ReminderViewController: UIViewController, ReloadDelegate {
+final class ReminderViewController: UIViewController, ReloadDelegate, UINavigationControllerDelegate {
 
     private let mainView = ReminderView()
     private var data: Results<ReminderModel>!
     private let repository = ReminderModelRepository()
+    private var boxData: Results<ReminderBox>!
+    let realm = try! Realm()
 
     override func loadView() {
         view = mainView
@@ -35,9 +37,11 @@ final class ReminderViewController: UIViewController, ReloadDelegate {
             self.present(nav, animated: true)
         }
         data = repository.read()
+        boxData = realm.objects(ReminderBox.self)
         
-        mainView.addBoxButtonTapped = { vc in
-            self.present(vc, animated: true)
+        mainView.addBoxButtonTapped = { (nav, vc) in
+            self.present(nav, animated: true)
+            vc.delegate = self
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +50,7 @@ final class ReminderViewController: UIViewController, ReloadDelegate {
     }
     func reload() {
         mainView.collectionView.reloadData()
+        mainView.tableView.reloadData()
     }
 }
 
@@ -79,14 +84,13 @@ extension ReminderViewController: UICollectionViewDelegate, UICollectionViewData
 
 extension ReminderViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        boxData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ReminderTableViewCell.id, for: indexPath) as! ReminderTableViewCell
         
-        cell.title.text = "테스트"
-        cell.count.text = "2"
+        cell.configureCell(data: boxData[indexPath.row])
         
         return cell
     }

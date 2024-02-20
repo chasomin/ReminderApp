@@ -9,17 +9,24 @@ import UIKit
 import SnapKit
 
 final class ReminderTableViewCell: BaseTableViewCell {
+    let icon = CircleImageView(frame: .zero)
     let title = UILabel()
     let count = UILabel()
     
     override func configureHierarchy() {
+        contentView.addSubview(icon)
         contentView.addSubview(title)
         contentView.addSubview(count)
     }
     
     override func configureLayout() {
-        title.snp.makeConstraints { make in
+        icon.snp.makeConstraints { make in
             make.leading.verticalEdges.equalToSuperview().inset(15)
+            make.width.equalTo(icon.snp.height)
+        }
+        title.snp.makeConstraints { make in
+            make.leading.equalTo(icon.snp.trailing).offset(10)
+            make.verticalEdges.equalToSuperview().inset(15)
         }
         count.snp.makeConstraints { make in
             make.trailing.verticalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(15)
@@ -27,7 +34,10 @@ final class ReminderTableViewCell: BaseTableViewCell {
         }
     }
     
-    override func configureView() {
+    override func configureView() {    
+        
+        icon.image.contentMode = .scaleAspectFit
+        
         title.font = .systemFont(ofSize: 13)
         title.textColor = .white
         title.textAlignment = .left
@@ -44,4 +54,11 @@ final class ReminderTableViewCell: BaseTableViewCell {
         backgroundColor = .systemGray6
     }
 
+    func configureCell(data: ReminderBox) {
+        title.text = data.title
+        count.text = "\(data.reminder.count)"
+        
+        icon.backgroundColor = BoxColor.allCases[data.color].color
+        icon.image.image = BoxIcon.allCases[data.icon].icon
+    }
 }

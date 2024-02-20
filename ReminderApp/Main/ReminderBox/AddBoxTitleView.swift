@@ -39,8 +39,13 @@ final class AddBoxTitleView: BaseView {
         textField.borderStyle = .roundedRect
         textField.textAlignment = .center
         textField.backgroundColor = .systemGray3
+        textField.addTarget(self, action: #selector(returnButtonTapped), for: .editingDidEndOnExit)
         
         iconImage.backgroundColor = .systemPink
         iconImage.image.image = UIImage(systemName: "flame.fill")
+    }
+    
+    @objc func returnButtonTapped() {
+        endEditing(true)
     }
 }
