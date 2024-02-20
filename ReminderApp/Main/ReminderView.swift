@@ -11,33 +11,45 @@ import SnapKit
 final class ReminderView: BaseView {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    
     let toolBar = UIToolbar()
-    private let image = UIImage(systemName: "plus.circle.fill")
-    private var button = UIButton()
     
     var toolbarAction: (() -> Void)?
     
     override func configureHierarchy() {
         addSubview(collectionView)
+        addSubview(tableView)
         addSubview(toolBar)
     }
     
     override func configureLayout() {
         collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.height.equalTo(300)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(collectionView.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
     
     
     override func configureView() {
         collectionView.backgroundColor = .clear
-        
+        tableView.backgroundColor = .clear
     }
     
     func setToolBar() -> [UIBarButtonItem] {
+        let config = UIImage.SymbolConfiguration(scale: .large)
+        let image = UIImage(systemName: "plus.circle.fill", withConfiguration: config)
+        var button = UIButton()
+
         button.setTitle("새로운 미리 알림", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        
         button.setImage(image, for: .normal)
         button.addTarget(self, action: #selector(addReminderButtonTapped), for: .touchUpInside)
         let addReminder = UIBarButtonItem(customView: button)
@@ -60,13 +72,12 @@ final class ReminderView: BaseView {
 extension ReminderView {
     static func collectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 10
-        let width = UIScreen.main.bounds.width - spacing * 3
-        layout.itemSize = CGSize(width: width/2, height: 100)
-        layout.minimumLineSpacing = spacing
-        layout.minimumInteritemSpacing = spacing
+        let spacing: CGFloat = 20
+        let width = UIScreen.main.bounds.width - spacing * 2 - 10
+        layout.itemSize = CGSize(width: width/2, height: 90)
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: spacing)
-//        layout.scrollDirection = .horizontal
         return layout
     }
 }

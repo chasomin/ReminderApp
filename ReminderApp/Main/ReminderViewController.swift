@@ -25,9 +25,11 @@ final class ReminderViewController: UIViewController, ReloadDelegate {
     
         let collectionView = mainView.collectionView
         setCollectionView(collectionView: collectionView, delegate: self, dataSource: self, cell: ReminderCollectionViewCell.self, id: ReminderCollectionViewCell.id)
+        let tableView = mainView.tableView
+        setTableView(tableView: tableView, delegate: self, dataSource: self, cell: ReminderTableViewCell.self, id: ReminderTableViewCell.id)
         
         mainView.toolbarAction = {
-            let vc = AddReminderViewController()
+            let vc = AddReminderViewController(navigationTitle: "새로운 할 일", navigationRigthButtonTitle: "추가", barButtonIsEnabled: false, id: nil, deleteButtonIsHidden: true)
             let nav = UINavigationController(rootViewController: vc)
             vc.delegate = self
             self.present(nav, animated: true)
@@ -68,4 +70,27 @@ extension ReminderViewController: UICollectionViewDelegate, UICollectionViewData
         navigationController?.pushViewController(vc, animated: true)
         
     }
+}
+
+
+extension ReminderViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ReminderTableViewCell.id, for: indexPath) as! ReminderTableViewCell
+        
+        cell.title.text = "테스트"
+        cell.count.text = "2"
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        let view = HeaderTitleView()
+        
+        return view
+    }
+    
 }
