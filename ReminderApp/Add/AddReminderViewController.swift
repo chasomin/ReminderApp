@@ -82,12 +82,14 @@ final class AddReminderViewController: UIViewController {
         }
     }
     
-    //TODO: 삭제버튼 눌렀을 때 alert
     @objc func deleteButtonTapped() {
-        deleteImageToDocument(filename: "\(id)")
-        repository.deleteItem(deleteData)
-        dismiss(animated: true)
-        delegate?.reload()
+        let okButton = UIAlertAction(title: "확인", style: .default) { _ in
+            self.deleteImageToDocument(filename: "\(self.id)")
+            self.repository.deleteItem(self.deleteData)
+            self.dismiss(animated: true)
+            self.delegate?.reload()
+        }
+        showAlert(style: .alert, title: "삭제", message: "해당 할 일을 삭제하시겠습니까?", buttons: [okButton])
     }
 }
 

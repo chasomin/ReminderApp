@@ -10,12 +10,11 @@ import FSCalendar
 import SnapKit
 import RealmSwift
 
-class CalendarViewController: BaseViewController {
+final class CalendarViewController: BaseViewController {
 
-    let realm = try! Realm()
-    let calendar = FSCalendar()
+    private let realm = try! Realm()
+    private let calendar = FSCalendar()
     var calendarData: ((Results<ReminderModel>) -> Void)?
-    
     var selectedDate: ((Date) -> Void)?
     var selected: Date?
     
@@ -60,7 +59,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
         
         return realm.objects(ReminderModel.self).filter(predicate).count
     }
-    //TODO: 선택했던 날짜 기억하게 하기~
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let start = Calendar.current.startOfDay(for: date)
         
