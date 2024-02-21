@@ -9,10 +9,10 @@ import UIKit
 import SnapKit
 import RealmSwift
 
-class BoxViewController: BaseViewController {
+final class BoxViewController: BaseViewController {
     
     let tableView = UITableView()
-    let realm = try! Realm()
+    let repository = ReminderModelRepository()
     var data: Results<ReminderBox>!
     var boxData: ReminderBox?
     var seletedData: ((ReminderBox) -> Void)?
@@ -20,8 +20,7 @@ class BoxViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        data = realm.objects(ReminderBox.self)
-        
+        data = repository.read()
         setTableView(tableView: tableView, delegate: self, dataSource: self, cell: BoxTableViewCell.self, id: BoxTableViewCell.id)
     }
     
@@ -55,10 +54,7 @@ extension BoxViewController: UITableViewDelegate, UITableViewDataSource {
         
         if data[indexPath.row] == boxData {
             cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
         }
-        
         
         return cell
     }

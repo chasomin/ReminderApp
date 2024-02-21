@@ -10,7 +10,8 @@ import RealmSwift
 final class AddBoxViewController: UIViewController {
     
     let mainView = AddBoxView()
-    let realm = try! Realm()
+
+    let repository = ReminderModelRepository()
     let boxData = ReminderBox(title: "", regDate: Date(), color: 5, icon: 5)
     var delegate: ReloadDelegate?
 
@@ -32,7 +33,6 @@ final class AddBoxViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(boxIconReceivedNotification), name: NSNotification.Name("Icon"), object: nil)
 
-        print(realm.configuration.fileURL)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -47,16 +47,7 @@ final class AddBoxViewController: UIViewController {
     }
     
     @objc func rightBarButtonTapped() {
-        print(#function)
-        //TODO: 저장, 타이틀 없으면 비활성화
-        
-        do {
-            try realm.write {
-                realm.add(boxData)
-            }
-        } catch {
-            print(error)
-        }
+        repository.createItem(boxData, type: ReminderBox.self)
         dismiss(animated: true)
     }
     

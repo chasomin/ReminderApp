@@ -12,8 +12,10 @@ import RealmSwift
 
 final class CalendarViewController: BaseViewController {
 
-    private let realm = try! Realm()
     private let calendar = FSCalendar()
+    
+    private let repository = ReminderModelRepository()
+    
     var calendarData: ((Results<ReminderModel>) -> Void)?
     var selectedDate: ((Date) -> Void)?
     var selected: Date?
@@ -57,7 +59,9 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
         
         let predicate = NSPredicate(format: "deadline >= %@ && deadline < %@", start as NSDate, end as NSDate)
         
-        return realm.objects(ReminderModel.self).filter(predicate).count
+
+        return repository.read(type: ReminderModel.self).filter(predicate).count
+        
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -72,7 +76,8 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
             selected = selectedDate
             print(selectedDate)
         }
-        calendarData?(realm.objects(ReminderModel.self).filter(predicate))
+        calendarData?(repository.read(type: ReminderModel.self).filter(predicate))
+
         dismiss(animated: true)
     }
     

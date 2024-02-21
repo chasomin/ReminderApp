@@ -12,7 +12,7 @@ final class AddReminderViewController: UIViewController {
     
     private let mainView = AddReminderView()
     var realmData: ReminderModel = ReminderModel(title: "", memo: "", deadline: Date(), tag: "", priority: 0)
-    lazy var boxData: ReminderBox = realm.objects(ReminderBox.self).first ?? ReminderBox(title: "", regDate: Date(), color: 0, icon: 0)
+    lazy var boxData: ReminderBox = repository.read().first ?? ReminderBox(title: "", regDate: Date(), color: 0, icon: 0)
     var deleteData: ReminderModel!
     var delegate: ReloadDelegate?
     
@@ -22,7 +22,6 @@ final class AddReminderViewController: UIViewController {
     var id: ObjectId
     var deleteButtonIsHidden: Bool
     
-    let realm = try! Realm()
     private let repository = ReminderModelRepository()
     var pickedImage = UIImage() {
         didSet {
@@ -68,30 +67,25 @@ final class AddReminderViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(tagMessageReceivedNotification), name: NSNotification.Name("TagMessage"), object: nil)
         
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         mainView.tableView.reloadData()
+
     }
     
     @objc func addButtonTapped() {
-//        repository.createItem(realmData)
-        do {
-            try realm.write {
-                boxData.reminder.append(realmData)
-            }
-        } catch {
-            print(error)
-        }
+        repository.appendItme(realmData, data: boxData.reminder)
         saveImageToDocument(image: pickedImage, filename: "\(realmData.id)")
         delegate?.reload()
         dismiss(animated: true)
     }
     
     @objc func updateButtonTapped() {
-        repository.updateItem(id: id, title: realmData.title, memo: realmData.memo, deadline: realmData.deadline, tag: realmData.tag, priority: realmData.priority)
+//        repository.updateItem(id: id, title: realmData.title, memo: realmData.memo, deadline: realmData.deadline, tag: realmData.tag, priority: realmData.priority)
+        repository.createLinkingObjects(new: boxData.reminder, data: realmData)
+        print("+++저장")
         saveImageToDocument(image: pickedImage, filename: "\(id)")
         delegate?.reload()
         dismiss(animated: true)
@@ -211,6 +205,7 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
         } else if indexPath.section == 5 {
             let vc = BoxViewController()
             vc.seletedData = { data in
+                self.repository.deleteLinkingObjects(old: self.boxData.reminder, id: self.id)
                 self.boxData = data
             }
             vc.boxData = boxData
