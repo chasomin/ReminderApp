@@ -12,12 +12,11 @@ class HeaderTitleView: UIView {
 
     let title: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 17, weight: .heavy)
+        label.font = .systemFont(ofSize: 20, weight: .heavy)
         label.text = "나의 목록"
         label.textColor = .white
         return label
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
