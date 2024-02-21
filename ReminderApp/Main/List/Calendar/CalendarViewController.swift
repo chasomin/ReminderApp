@@ -74,7 +74,6 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
         if let selectedDate = calendar.selectedDate {
             self.selectedDate?(selectedDate)
             selected = selectedDate
-            print(selectedDate)
         }
         calendarData?(repository.read(type: ReminderModel.self).filter(predicate))
 

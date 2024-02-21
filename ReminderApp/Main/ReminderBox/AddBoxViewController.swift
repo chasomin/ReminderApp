@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import RealmSwift
+
 final class AddBoxViewController: UIViewController {
     
     let mainView = AddBoxView()
@@ -73,9 +73,6 @@ extension AddBoxViewController: UITextFieldDelegate {
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }
-
-        print(boxData)
-
     }
     
     

@@ -58,6 +58,5 @@ final class AddBoxIconView: BaseView {
     @objc func iconButtonTapped(_ sender: UIButton) {
         seletedIcon?(sender.tag)
         NotificationCenter.default.post(name: NSNotification.Name("Icon"), object: nil, userInfo: ["icon":sender.tag])
-        print(#function)
     }
 }

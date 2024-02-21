@@ -13,10 +13,12 @@ extension UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = isLarge
         
     }
+    
     func setToolbar(items: [UIBarButtonItem]) {
         navigationController?.isToolbarHidden = false
         toolbarItems = items
     }
+    
     func setCollectionView(collectionView: UICollectionView, delegate: UICollectionViewDelegate, dataSource: UICollectionViewDataSource, cell: AnyClass, id: String) {
         collectionView.delegate = delegate
         collectionView.dataSource = dataSource

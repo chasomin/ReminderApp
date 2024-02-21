@@ -67,7 +67,6 @@ final class ReminderListViewController: UIViewController, ReloadDelegate {
     }
     
     @objc func calendarButtonTapped() {
-        print(#function)
         let vc = CalendarViewController()
         vc.calendarData = { value in
             self.data = value

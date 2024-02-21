@@ -68,12 +68,10 @@ final class ReminderView: BaseView, UINavigationControllerDelegate {
     }
     
     @objc func addReminderButtonTapped() {
-        print(#function)
         addReminderAction?()
     }
     
     @objc func addListButtonTapped() {
-        print(#function)
         let vc = AddBoxViewController()
         let nav = UINavigationController(rootViewController: vc)
         addBoxButtonTapped?(nav, vc)

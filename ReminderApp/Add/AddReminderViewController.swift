@@ -85,7 +85,6 @@ final class AddReminderViewController: UIViewController {
     @objc func updateButtonTapped() {
 //        repository.updateItem(id: id, title: realmData.title, memo: realmData.memo, deadline: realmData.deadline, tag: realmData.tag, priority: realmData.priority)
         repository.createLinkingObjects(new: boxData.reminder, data: realmData)
-        print("+++저장")
         saveImageToDocument(image: pickedImage, filename: "\(id)")
         delegate?.reload()
         dismiss(animated: true)
@@ -184,7 +183,6 @@ extension AddReminderViewController: UITableViewDelegate, UITableViewDataSource 
             let vc = PriorityViewController()
             vc.priorityData = { index, text in
                 self.realmData.priority = index
-                print(index)
             }
             navigationController?.pushViewController(vc, animated: true)
         } else if indexPath.section == 4 {

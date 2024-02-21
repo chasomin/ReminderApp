@@ -25,7 +25,6 @@ final class DeadlineViewController: BaseViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         date?(datePicker.date)
-        print(textField.text!)
     }
     
     override func configureHierarchy() {
@@ -57,7 +56,6 @@ final class DeadlineViewController: BaseViewController {
         format.dateFormat = "yy년 MM월 dd일"
         let result = format.string(from: datePicker.date)
         textField.text = "\(result)"
-        print(datePicker.date)
     }
     
 }

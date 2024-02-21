@@ -24,6 +24,7 @@
 		793843472B84AB53000BDDF9 /* BoxIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843462B84AB53000BDDF9 /* BoxIcon.swift */; };
 		793843492B84C434000BDDF9 /* BoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843482B84C434000BDDF9 /* BoxViewController.swift */; };
 		7938434B2B84C7D0000BDDF9 /* BoxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7938434A2B84C7D0000BDDF9 /* BoxTableViewCell.swift */; };
+		793843562B85F1F6000BDDF9 /* RealmNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793843552B85F1F6000BDDF9 /* RealmNotification.swift */; };
 		7984B5582B7C83920079AB07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5572B7C83920079AB07 /* AppDelegate.swift */; };
 		7984B55A2B7C83920079AB07 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7984B5592B7C83920079AB07 /* SceneDelegate.swift */; };
 		7984B55F2B7C83920079AB07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7984B55D2B7C83920079AB07 /* Main.storyboard */; };
@@ -75,6 +76,7 @@
 		793843462B84AB53000BDDF9 /* BoxIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxIcon.swift; sourceTree = "<group>"; };
 		793843482B84C434000BDDF9 /* BoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxViewController.swift; sourceTree = "<group>"; };
 		7938434A2B84C7D0000BDDF9 /* BoxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxTableViewCell.swift; sourceTree = "<group>"; };
+		793843552B85F1F6000BDDF9 /* RealmNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmNotification.swift; sourceTree = "<group>"; };
 		7984B5542B7C83920079AB07 /* ReminderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReminderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7984B5572B7C83920079AB07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7984B5592B7C83920079AB07 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 			children = (
 				79DF41A62B7DF77300D49E35 /* ReminderModel.swift */,
 				793843102B7F84AE000BDDF9 /* ReminderModelRepository.swift */,
+				793843552B85F1F6000BDDF9 /* RealmNotification.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				7984B5972B7CD2540079AB07 /* PriorityViewController.swift in Sources */,
 				7984B5842B7CA5A00079AB07 /* CircleImageView.swift in Sources */,
 				7984B5902B7CC5920079AB07 /* BaseTableViewCell.swift in Sources */,
+				793843562B85F1F6000BDDF9 /* RealmNotification.swift in Sources */,
 				7984B59B2B7CD27B0079AB07 /* TagViewController.swift in Sources */,
 				7984B56E2B7C8B6F0079AB07 /* BaseView.swift in Sources */,
 				7984B5992B7CD26D0079AB07 /* DeadlineViewController.swift in Sources */,
