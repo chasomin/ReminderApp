@@ -8,10 +8,14 @@
 import UIKit
 import SnapKit
 
-class BoxTableViewCell: BaseTableViewCell {
+final class BoxTableViewCell: BaseTableViewCell {
     let icon = CircleImageView()
     let title = UILabel()
 
+    override func prepareForReuse() {
+        accessoryType = .none
+    }
+    
     override func configureHierarchy() {
         contentView.addSubview(icon)
         contentView.addSubview(title)
