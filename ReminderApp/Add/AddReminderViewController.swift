@@ -12,7 +12,7 @@ final class AddReminderViewController: UIViewController {
     
     private let mainView = AddReminderView()
     var realmData: ReminderModel = ReminderModel(title: "", memo: "", deadline: Date(), tag: "", priority: 0)
-    lazy var boxData: ReminderBox = repository.read().first ?? ReminderBox(title: "", regDate: Date(), color: 0, icon: 0)
+    lazy var boxData: ReminderBox = repository.read().first ?? ReminderBox(boxTitle: "", regDate: Date(), color: 0, icon: 0)
     var deleteData: ReminderModel!
     var delegate: ReloadDelegate?
     
@@ -84,8 +84,9 @@ final class AddReminderViewController: UIViewController {
     
     @objc func updateButtonTapped() {
 //        repository.updateItem(id: id, title: realmData.title, memo: realmData.memo, deadline: realmData.deadline, tag: realmData.tag, priority: realmData.priority)
-        repository.createLinkingObjects(new: boxData.reminder, data: realmData)
-        saveImageToDocument(image: pickedImage, filename: "\(id)")
+        repository.createLinkingObjects(new: boxData.reminder, data: realmData, id: id)
+        saveImageToDocument(image: pickedImage, filename: "\(realmData.id)")
+        deleteImageToDocument(filename: "\(id)")
         delegate?.reload()
         dismiss(animated: true)
     }
