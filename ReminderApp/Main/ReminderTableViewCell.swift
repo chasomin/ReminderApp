@@ -55,7 +55,7 @@ final class ReminderTableViewCell: BaseTableViewCell {
     }
 
     func configureCell(data: ReminderBox) {
-        title.text = data.title
+        title.text = data.boxTitle
         count.text = "\(data.reminder.count)"
         
         icon.backgroundColor = BoxColor.allCases[data.color].color

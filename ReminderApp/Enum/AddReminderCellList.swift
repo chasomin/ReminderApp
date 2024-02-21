@@ -55,7 +55,7 @@ enum AddReminderCellList: Int, CaseIterable {
         case .image:
             ""
         case .box:
-            boxData.title
+            boxData.boxTitle
         }
     }
     

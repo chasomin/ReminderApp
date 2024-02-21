@@ -39,7 +39,7 @@ final class BoxTableViewCell: BaseTableViewCell {
     
     
     func configureCell(data: ReminderBox) {
-        title.text = data.title
+        title.text = data.boxTitle
         
         icon.backgroundColor = BoxColor.allCases[data.color].color
         icon.image.image = BoxIcon.allCases[data.icon].icon

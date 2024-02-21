@@ -11,17 +11,17 @@ import RealmSwift
 
 final class ReminderBox: Object {
     @Persisted(primaryKey: true) var id: ObjectId
-    @Persisted var title: String
+    @Persisted var boxTitle: String
     @Persisted var regDate: Date
     @Persisted var color: Int
     @Persisted var icon: Int
     
     @Persisted var reminder: List<ReminderModel>
     
-    convenience init(title: String, regDate: Date, color: Int, icon: Int) {
+    convenience init(boxTitle: String, regDate: Date, color: Int, icon: Int) {
         self.init()
         
-        self.title = title
+        self.boxTitle = boxTitle
         self.regDate = regDate
         self.color = color
         self.icon = icon
@@ -37,6 +37,7 @@ final class ReminderModel: Object {
     @Persisted var tag: String?
     @Persisted var priority: Int
     @Persisted var isDone: Bool
+    @Persisted var regDate: Date
 
     @Persisted(originProperty: "reminder") var box: LinkingObjects<ReminderBox>
     
@@ -50,5 +51,6 @@ final class ReminderModel: Object {
         self.tag = tag
         self.priority = priority
         self.isDone = false
+        self.regDate = Date()
     }
 }

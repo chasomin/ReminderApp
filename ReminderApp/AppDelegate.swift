@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -13,7 +14,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let configuration = Realm.Configuration(schemaVersion: 2) { migration, oldSchemaVersion in
+            
+            // ReminderModel에 regDate 컬럼 추가
+            if oldSchemaVersion < 1 {
+                print("Schema version 0 -> 1")
+            }
+            
+            // ReminderBox title 컬럼명 BoxTitle로 변경
+            if oldSchemaVersion < 2 {
+                migration.renameProperty(onType: ReminderBox.className(), from: "title", to: "boxTitle")
+                print("Schema version 1 -> 2")
+            }
+        }
+        
+        Realm.Configuration.defaultConfiguration = configuration
+        
         return true
     }
 

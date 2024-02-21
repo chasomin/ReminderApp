@@ -12,7 +12,7 @@ final class AddBoxViewController: UIViewController {
     let mainView = AddBoxView()
 
     let repository = ReminderModelRepository()
-    let boxData = ReminderBox(title: "", regDate: Date(), color: 5, icon: 5)
+    let boxData = ReminderBox(boxTitle: "", regDate: Date(), color: 5, icon: 5)
     var delegate: ReloadDelegate?
 
     override func loadView() {
@@ -69,7 +69,7 @@ extension AddBoxViewController: UITextFieldDelegate {
         
         if textField.text != "" {
             navigationItem.rightBarButtonItem?.isEnabled = true
-            boxData.title = textField.text!
+            boxData.boxTitle = textField.text!
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }
