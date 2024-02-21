@@ -92,9 +92,15 @@ final class ReminderModelRepository {
         }
     }
     
-    func createLinkingObjects<T: Object>(new: List<T>, data: T) {
+    func createLinkingObjects(new: List<ReminderModel>, data: ReminderModel, id: ObjectId) {
         do {
             try realm.write {
+                let deleteItem = new.where {
+                    $0.id == id
+                }.first
+                if let deleteItem {
+                    realm.delete(deleteItem)
+                }
                 new.append(data)
             }
         } catch {
@@ -124,13 +130,16 @@ final class ReminderModelRepository {
         }
     }
     
-    func deleteList<T: Object>(_ list: List<T>) {
+    func deleteList(_ list: List<ReminderModel>, deleteImages: @escaping ((ObjectId) -> Void)) {
         do {
             try realm.write {
+                list.forEach {
+                    deleteImages($0.id)
+                }
                 realm.delete(list)
             }
         } catch {
-            
+            print(error)
         }
     }
     

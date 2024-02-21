@@ -116,7 +116,7 @@ extension ReminderViewController: UITableViewDelegate, UITableViewDataSource {
         let view = HeaderTitleView()
         return view
     }
-    //TODO: 목록 없으면 할 일 생성 막기!!!!
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         0
         /// viewForHeaderInSection이 없으면 높이도 안 먹음
@@ -128,16 +128,20 @@ extension ReminderViewController: UITableViewDelegate, UITableViewDataSource {
         }
             vc.mainView.searchBar.isHidden = true
         
-        vc.navigationItem.title = boxData[indexPath.row].title
+        vc.navigationItem.title = boxData[indexPath.row].boxTitle
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "삭제") { _, _, _ in
             let row = self.boxData[indexPath.row]
-            self.repository.deleteList(row.reminder)
+            self.repository.deleteList(row.reminder, deleteImages: { id in
+                self.deleteImageToDocument(filename: "\(id)")
+            })
             self.repository.deleteItem(row)
+
             tableView.reloadData()
+            self.mainView.collectionView.reloadData()
         }
         delete.backgroundColor = UIColor.systemRed
         
