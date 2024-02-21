@@ -12,8 +12,7 @@ final class ReminderModelRepository {
     private let realm = try! Realm()
 
     // MARK: Create
-    func createItem(_ item: ReminderModel) {
-        print(realm.configuration.fileURL)
+    func createItem<T: Object>(_ item: T, type: T.Type = T.self) {
         do {
             try realm.write {
                 realm.add(item)
@@ -23,9 +22,19 @@ final class ReminderModelRepository {
         }
     }
     
+    func appendItme<T: Object>(_ item: T, data: List<T>) {
+        do {
+            try realm.write {
+                data.append(item)
+            }
+        } catch {
+            
+        }
+    }
+    
     // MARK: Read
-    func read() -> Results<ReminderModel> {
-        realm.objects(ReminderModel.self)
+    func read<T: Object>(type: T.Type = T.self) -> Results<T> {
+        realm.objects(type)
     }
     
     func readDeadlineSort() -> Results<ReminderModel> {
@@ -77,12 +86,22 @@ final class ReminderModelRepository {
                 realm.create(ReminderModel.self,
                              value: ["id":id, "title": title, "memo": memo, "deadline": deadline, "tag": tag, "priority": priority],
                              update: .modified)
-
             }
         } catch {
-            
+            print(error)
         }
     }
+    
+    func createLinkingObjects<T: Object>(new: List<T>, data: T) {
+        do {
+            try realm.write {
+                new.append(data)
+            }
+        } catch {
+            print(error)
+        }
+    }
+
     
     func updateIsDone(_ item: ReminderModel) {
         do {
@@ -95,10 +114,38 @@ final class ReminderModelRepository {
     }
     
     // MARK: Delete
-    func deleteItem(_ item: ReminderModel) {
+    func deleteItem<T: Object>(_ item: T) {
         do {
             try realm.write {
                 realm.delete(item)
+            }
+        } catch {
+            
+        }
+    }
+    
+    func deleteList<T: Object>(_ list: List<T>) {
+        do {
+            try realm.write {
+                realm.delete(list)
+            }
+        } catch {
+            
+        }
+    }
+    
+    
+    func deleteLinkingObjects(old: List<ReminderModel>, id: ObjectId) {
+        do {
+            try realm.write {
+                
+                let deleteItem = old.where {
+                    return $0.id == id
+                }.first
+
+                guard let deleteItem else{return}
+                
+                realm.delete(deleteItem)
             }
         } catch {
             
