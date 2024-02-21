@@ -11,15 +11,29 @@ import SnapKit
 final class ReminderView: BaseView, UINavigationControllerDelegate {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    let tableViewTitle = HeaderTitleView()
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     let toolBar = UIToolbar()
+    lazy var toolBarLeftButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        let image = UIImage(systemName: "plus.circle.fill")
+        config.image = image
+        config.imagePadding = 5
+        config.title = "새로운 미리 알림"
+        button.configuration = config
+        button.addTarget(self, action: #selector(addReminderButtonTapped), for: .touchUpInside)
+        
+        return button
+    }()
     
-    var toolbarAction: (() -> Void)?
+    var addReminderAction: (() -> Void)?
     var addBoxButtonTapped: ((UINavigationController, AddBoxViewController) -> Void)?
     
     override func configureHierarchy() {
         addSubview(collectionView)
+        addSubview(tableViewTitle)
         addSubview(tableView)
         addSubview(toolBar)
     }
@@ -30,12 +44,16 @@ final class ReminderView: BaseView, UINavigationControllerDelegate {
             make.height.equalTo(300)
         }
         
+        tableViewTitle.snp.makeConstraints { make in
+            make.top.equalTo(collectionView.snp.bottom).offset(20)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom)
+            make.top.equalTo(tableViewTitle.snp.bottom)
             make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
-    
     
     override func configureView() {
         collectionView.backgroundColor = .clear
@@ -43,26 +61,15 @@ final class ReminderView: BaseView, UINavigationControllerDelegate {
     }
     
     func setToolBar() -> [UIBarButtonItem] {
-        let config = UIImage.SymbolConfiguration(scale: .large)
-        let image = UIImage(systemName: "plus.circle.fill", withConfiguration: config)
-        var button = UIButton()
-
-        button.setTitle("새로운 미리 알림", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
-        
-        button.setImage(image, for: .normal)
-        button.addTarget(self, action: #selector(addReminderButtonTapped), for: .touchUpInside)
-        let addReminder = UIBarButtonItem(customView: button)
+        let addReminder = UIBarButtonItem(customView: toolBarLeftButton)
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let addList = UIBarButtonItem(title: "목록 추가", style: .plain, target: self, action: #selector(addListButtonTapped))
-        
         return [addReminder, space, addList]
     }
     
     @objc func addReminderButtonTapped() {
         print(#function)
-        toolbarAction?()
+        addReminderAction?()
     }
     
     @objc func addListButtonTapped() {
